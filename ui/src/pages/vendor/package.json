@@ -1,0 +1,7 @@
+{
+  "name": "vendor",
+  "version": "0.0.0",
+  "main": "Vendor.js",
+  "private": true
+}
+

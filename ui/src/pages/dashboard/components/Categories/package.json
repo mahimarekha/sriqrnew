@@ -1,0 +1,6 @@
+{
+    "name": "categories",
+    "version": "0.0.0",
+    "main": "categories.js",
+    "private": true
+  }
