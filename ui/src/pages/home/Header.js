@@ -71,9 +71,9 @@ function Header(props) {
                                         <a href="#features" class="page-scroll"
                                             aria-label="Toggle navigation">Features</a>
                                     </li> */}
-                                    <li class="nav-item">
+                                    {/* <li class="nav-item">
                                         <a href="javascript:void(0)" aria-label="Toggle navigation">Ticket Booking</a>
-                                    </li>
+                                    </li> */}
                                     {/* <li class="nav-item">
                                         <a href="#pricing" class="page-scroll"
                                             aria-label="Toggle navigation">Pricing</a>

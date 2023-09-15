@@ -169,7 +169,7 @@ const findParkList=async(req, res)=>{
   const qrCode = async(req, res) =>{
    
     const id=req.params.id;
-    QRCode.toDataURL(`http://localhost:3000/#/ticketbooking/${id}`, function (err, url) {
+    QRCode.toDataURL(`${process.env.QR_CODE_URL}/#/ticketbooking/${id}`, function (err, url) {
       console.log(url)
        res.send( { image:url });
 

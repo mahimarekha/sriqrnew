@@ -23,7 +23,7 @@ export default function App() {
   return (
     <HashRouter>
       <Switch>
-        <Route exact path="/" render={() => <Redirect to="/app/park" />} />
+        <Route exact path="/" render={() => <Redirect to="/home" />} />
         {/* <Route
           exact
           path="/app"
