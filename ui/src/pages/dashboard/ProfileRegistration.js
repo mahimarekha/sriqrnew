@@ -119,7 +119,7 @@ export default function ProfileSRegistration(props) {
         ProfileRegistrationService.creteProfileRegistration(values).then((res) => {
 
         alert(" Registration Successfully.");
-         props.history.push('/home');
+         props.history.push('/sriqr/login');
       })
         .catch((err) => {
           alert(err.response.data.message)
