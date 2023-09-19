@@ -60,20 +60,20 @@ function loginUser(dispatch, login, password, history, setIsLoading, setError, r
       setError(null)
       setIsLoading(false)
       dispatch({ type: 'LOGIN_SUCCESS' })
-
+debugger
       history.push('/app/park') ;
-      window.location.reload(false);
+       window.location.reload(false);
 
 
     }).catch((err) => {
       alert(err.response.data.message)
       setIsLoading(false);
-      history.push('/sriqr/login')
+      history.push('/login')
     });
   } 
 }
 function signOut(dispatch, history) {
   localStorage.removeItem("id_token");
   dispatch({ type: "SIGN_OUT_SUCCESS" });
-  history.push("/sriqr/login");
+  history.push("/login");
 }

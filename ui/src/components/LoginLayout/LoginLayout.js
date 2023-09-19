@@ -61,11 +61,11 @@ function LoginLayout(props) {
             <div className={classes.fakeToolbar} />
             <Switch>
              
-               <Route
+               {/* <Route
                 exact
                 path="/"
                 render={() => <Redirect to="/sriqr/schoolregistration" />}
-              />  
+              />   */}
               {/* <Route path="/montessori/schoolregistration" component={SchoolRegistration} /> */}
               <Route path="/sriqr/login" component={Login} />
               <Route path="/sriqr/profileregistration" component={ProfileRegistration} />
