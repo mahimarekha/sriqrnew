@@ -30,7 +30,7 @@ const useStyles = makeStyles({
   },
   title: {
     fontSize: 20,
-    color: 'rgb(15, 14, 159)',
+    color: 'rgb(255, 107, 129)',
     fontWeight: 'bold'
   },
   pos: {
@@ -287,7 +287,7 @@ export default function TicketBooking(props) {
                 <CardHeader
                   avatar={
 
-                    <LocationOnIcon style={{ color: 'rgb(15, 14, 159)', fontSize: 25 }} />
+                    <LocationOnIcon style={{ color: 'rgb(255, 107, 129)', fontSize: 25 }} />
 
                   }
 
@@ -357,7 +357,7 @@ export default function TicketBooking(props) {
                 <CardHeader
                   avatar={
 
-                    <ConfirmationNumberIcon style={{ color: 'rgb(15, 14, 159)', fontSize: 25 }} />
+                    <ConfirmationNumberIcon style={{ color: 'rgb(255, 107, 129)', fontSize: 25 }} />
 
                   }
                   classes={{
@@ -390,7 +390,7 @@ export default function TicketBooking(props) {
                 <CardHeader
                   avatar={
 
-                    <PaymentIcon style={{ color: 'rgb(15, 14, 159)', fontSize: 25 }} />
+                    <PaymentIcon style={{ color: 'rgb(255, 107, 129)', fontSize: 25 }} />
 
                   }
                   classes={{
@@ -421,7 +421,7 @@ export default function TicketBooking(props) {
             <div style={{ marginTop: "2%" }}>
               <Grid item xs={12}>
                 <div style={{ textAlign: 'center' }}>
-                  <Button style={{ backgroundColor: 'rgb(15, 14, 159)', color: 'white', marginBottom: '20px' }} onClick={bookTickets} variant="contained" >Book</Button>
+                  <Button style={{ backgroundColor: 'rgb(255, 107, 129)', color: 'white', marginBottom: '20px' }} onClick={bookTickets} variant="contained" >Book</Button>
                 </div>
               </Grid>
             </div>
