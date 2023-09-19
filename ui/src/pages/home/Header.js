@@ -36,7 +36,7 @@ function Header(props) {
   var [passwordValue, setPasswordValue] = useState("");
   var [roleValue, setRoleValue] = useState("");
   const handleOpen = () => {
-    props.history.push('/app/studentregistration/add') 
+    props.history.push('/sriqr/login') 
 };
   return (
   

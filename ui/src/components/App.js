@@ -1,5 +1,6 @@
 import React from "react";
 import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
+import ProfileRegistration from "../pages/dashboard/ProfileRegistration";
 
 // components
 import Layout from "./Layout";
@@ -31,10 +32,12 @@ export default function App() {
         /> */}
        
         <PublicRoute path="/ticketbooking/:parkId" component={TicketBooking} />
-        <PublicRoute path="/login" component={Login} />
+        {/* <PublicRoute path="/login" component={Login} /> */}
         <PublicRoute path="/home" component={Home} />
         <PrivateRoute path="/app" component={Layout} />
-        {/* <PublicRoute path="/sriqr" component={LoginLayout} /> */}
+        {/* <Route path="/sriqr/profileregistration" component={ProfileRegistration} /> */}
+
+        <PublicRoute path="/sriqr" component={LoginLayout} />
         
         <Route component={Error} />
       </Switch>

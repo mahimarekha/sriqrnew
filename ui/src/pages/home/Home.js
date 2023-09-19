@@ -62,7 +62,7 @@ function Home(props) {
     var [passwordValue, setPasswordValue] = useState("");
     var [roleValue, setRoleValue] = useState("");
     const handleOpen = () => {
-        props.history.push('/login')
+        props.history.push('/sriqr/login')
     };
     useEffect(() => {
          getParkList();
