@@ -88,7 +88,10 @@ export default function TicketBooking(props) {
         <Grid item xs={4}>
 
           <div>
-            <h4>{name}</h4>
+            <h4 style={{ 'overflow': 'hidden',
+                'text-transform': 'uppercase',
+    'text-overflow': 'ellipsis',
+    'white-space': 'break-spaces'}}>{name}</h4>
 
           </div>
           <div>
@@ -98,7 +101,7 @@ export default function TicketBooking(props) {
         <Grid item xs={4}>
           <div style={{ textAlign: 'center' }}>
             <RemoveIcon style={{ cursor: 'pointer', width: "18px", height: "18px", }} onClick={onDecrement} />
-            <span style={{ fontSize: '16px', padding: '10px' }}>{quantity}</span>
+            <span style={{ fontSize: '16px', padding: '9px' }}>{quantity}</span>
             <AddIcon style={{ cursor: 'pointer', width: "18px", height: "18px", }} onClick={onIncrement} />
 
 
@@ -319,8 +322,8 @@ export default function TicketBooking(props) {
 
                   </Grid> : '' } 
 
-                  <Grid item xs={6}>
-                    <TextField InputProps={{ style: { width: 370 } }}
+                  <Grid item xs={12} >
+                    <TextField 
                       autoFocus
                       margin="dense"
                       id="parkName"
@@ -329,12 +332,12 @@ export default function TicketBooking(props) {
                       label="Name Of The Park"
                       type="text"
                       variant="outlined"
-
+                      style={{ width: '100%' }}
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <TextField InputProps={{ style: { width: 370 } }}
-
+                    <TextField 
+style={{ width: '100%' }}
                       margin="dense"
                       id="mobile"
                       name="mobile"
