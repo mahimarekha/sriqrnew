@@ -305,7 +305,7 @@ export default function TicketBooking(props) {
                   classes={{
                     title: classes.title
                   }}
-                  title="Bookig For"
+                  title="Booking For"
 
                 />
                 {/* <Grid item xs={12}>
