@@ -101,7 +101,7 @@ export default function TicketBooking(props) {
         <Grid item xs={4}>
           <div style={{ textAlign: 'center' }}>
             <RemoveIcon style={{ cursor: 'pointer', width: "18px", height: "18px", }} onClick={onDecrement} />
-            <span style={{ fontSize: '16px', padding: '7px' }}>{quantity}</span>
+            <span style={{ fontSize: '16px', padding: '5px' }}>{quantity}</span>
             <AddIcon style={{ cursor: 'pointer', width: "18px", height: "18px", }} onClick={onIncrement} />
 
 
