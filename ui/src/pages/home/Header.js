@@ -35,6 +35,11 @@ function Header(props) {
   var [loginValue, setLoginValue] = useState("");
   var [passwordValue, setPasswordValue] = useState("");
   var [roleValue, setRoleValue] = useState("");
+  const [isOpen, setIsOpen] = React.useState(false);
+  const toggleNavbar = () => {
+    
+    setIsOpen(!isOpen);
+  };
   const handleOpen = () => {
     props.history.push('/sriqr/login') 
 };
@@ -54,53 +59,38 @@ function Header(props) {
                                 {/* <img src="home/images/SRIQR.COM LOGO JPG.jpg" alt="Sriqr.com"/> */}
 
                             </a>
-                            <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
+                            <button class="navbar-toggler mobile-menu-btn" onClick={toggleNavbar} type="button" data-bs-toggle="collapse"
                                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                 aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="toggler-icon"></span>
                                 <span class="toggler-icon"></span>
                                 <span class="toggler-icon"></span>
                             </button>
-                            <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
-                                <ul id="nav" class="navbar-nav ms-auto">
-                                    <li class="nav-item">
-                                        <a href="#home" class="page-scroll active"
-                                            aria-label="Toggle navigation">Home</a>
-                                    </li>
-                                    {/* <li class="nav-item">
-                                        <a href="#features" class="page-scroll"
-                                            aria-label="Toggle navigation">Features</a>
-                                    </li> */}
-                                    {/* <li class="nav-item">
-                                        <a href="javascript:void(0)" aria-label="Toggle navigation">Ticket Booking</a>
-                                    </li> */}
-                                    {/* <li class="nav-item">
-                                        <a href="#pricing" class="page-scroll"
-                                            aria-label="Toggle navigation">Pricing</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="javascript:void(0)" aria-label="Toggle navigation">Team</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
-                                            data-bs-target="#submenu-1-4" aria-controls="navbarSupportedContent"
-                                            aria-expanded="false" aria-label="Toggle navigation">Blog</a>
-                                        <ul class="sub-menu collapse" id="submenu-1-4">
-                                            <li class="nav-item"><a href="javascript:void(0)">Blog Grid Sidebar</a>
+                            {isOpen? <div class=" navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                        <ul id="nav" class="navbar-nav ms-auto">
+                                            <li class="nav-item">
+                                                <a href="#home" class="page-scroll active"
+                                                    aria-label="Toggle navigation">Home</a>
                                             </li>
-                                            <li class="nav-item"><a href="javascript:void(0)">Blog Single</a></li>
-                                            <li class="nav-item"><a href="javascript:void(0)">Blog Single
-                                                    Sibebar</a></li>
+                                            <li class="nav-item">
+                                <a href="javascript:void(0)" onClick={handleOpen} class="page-scroll active"> Admin Login</a>
+                            </li>
                                         </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="javascript:void(0)"  aria-label="Toggle navigation">Contact</a>
-                                    </li> */}
-                                </ul>
-                            </div>
-                            <div class="button add-list-button">
-                                <a href="javascript:void(0)" onClick={handleOpen} class="btn">Admin Login</a>
-                            </div>
+                                    </div>:<div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                        <ul id="nav" class="navbar-nav ms-auto">
+                                            <div class="nav-item">
+                                                <a href="#home" class="page-scroll active"
+                                                    aria-label="Toggle navigation">Home</a>
+                                            </div>
+                                            <div class="nav-item">
+                                            <a href="javascript:void(0)" onClick={handleOpen} class="page-scroll active"> Admin Login</a>
+                                            </div>
+                                       
+                                        </ul>
+                                    </div>}
+                            {/* <div class="button add-list-button">
+                                <a href="javascript:void(0)" onClick={handleOpen} class="btn">gg Admin Login</a>
+                            </div> */}
                         </nav>
                         
                     </div>

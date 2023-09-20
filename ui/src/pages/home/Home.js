@@ -4,17 +4,18 @@ import { Button } from "@material-ui/core";
 import { loginUser } from "../../context/UserContext";
 import { withRouter } from "react-router-dom";
 // import useStyles from "./styles";
-import {  makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import Footer from "../../pages/home/Footer"
 import MailIcon from '@material-ui/icons/Mail';
-import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, InputLabel, MenuItem,
+import {
+    Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, FormControl, InputLabel, MenuItem,
     TableRow, Table,
     TableHead,
     TableBody,
     TableCell
-  } from "@material-ui/core";
+} from "@material-ui/core";
 import ParkService from "../dashboard/Locality/Service/parkService";
-  import { Card, Box, Select } from "@material-ui/core";
+import { Card, Box, Select } from "@material-ui/core";
 import PhoneIcon from '@material-ui/icons/Phone';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
@@ -55,7 +56,7 @@ function Home(props) {
     var userDispatch = useUserDispatch();
     const [parkList, setParkList] = useState([]);
     const [parkId, setParkId] = useState("");
-    var [isLoading, setIsLoading] = useState(false); 
+    var [isLoading, setIsLoading] = useState(false);
     var [error, setError] = useState(null);
     var [activeTabId, setActiveTabId] = useState(0);
     var [loginValue, setLoginValue] = useState("");
@@ -65,7 +66,7 @@ function Home(props) {
         props.history.push('/sriqr/login')
     };
     useEffect(() => {
-         getParkList();
+        getParkList();
         return () => {
             setParkList([]);
         }
@@ -73,15 +74,21 @@ function Home(props) {
     const getParkList = () => {
         ParkService.getAllPark().then((res) => {
             setParkList(res);
-            
+
         }).catch((err) => {
             // setError(err.message);
         });
     }
+    const [isOpen, setIsOpen] = React.useState(false);
+
+  const toggleNavbar = () => {
+    
+    setIsOpen(!isOpen);
+  };
     const handleRedirect = () => {
-        debugger
-        props.history.push("ticketbooking/"+parkId)    
-      };
+        
+        props.history.push("ticketbooking/" + parkId)
+    };
     return (
 
         <>
@@ -98,53 +105,39 @@ function Home(props) {
                                         {/* <img src="home/images/SRIQR.COM LOGO JPG.jpg" alt="Sriqr.com"/> */}
 
                                     </a>
-                                    <button class="navbar-toggler mobile-menu-btn" type="button" data-bs-toggle="collapse"
+                                    <button class="navbar-toggler mobile-menu-btn" onClick={toggleNavbar} type="button" data-bs-toggle="collapse"
                                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                         aria-expanded="false" aria-label="Toggle navigation">
                                         <span class="toggler-icon"></span>
                                         <span class="toggler-icon"></span>
                                         <span class="toggler-icon"></span>
                                     </button>
-                                    <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                 {isOpen? <div class=" navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                         <ul id="nav" class="navbar-nav ms-auto">
                                             <li class="nav-item">
                                                 <a href="#home" class="page-scroll active"
                                                     aria-label="Toggle navigation">Home</a>
                                             </li>
-                                            {/* <li class="nav-item">
-                                        <a href="#features" class="page-scroll"
-                                            aria-label="Toggle navigation">Features</a>
-                                    </li> */}
-                                            {/* <li class="nav-item">
-                                                <a href="javascript:void(0)" aria-label="Toggle navigation">Ticket Booking</a>
-                                            </li> */}
-                                            {/* <li class="nav-item">
-                                        <a href="#pricing" class="page-scroll"
-                                            aria-label="Toggle navigation">Pricing</a>
-                                    </li> */}
-                                            {/* <li class="nav-item">
-                                        <a href="javascript:void(0)" aria-label="Toggle navigation">Team</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="dd-menu collapsed" href="javascript:void(0)" data-bs-toggle="collapse"
-                                            data-bs-target="#submenu-1-4" aria-controls="navbarSupportedContent"
-                                            aria-expanded="false" aria-label="Toggle navigation">Blog</a>
-                                        <ul class="sub-menu collapse" id="submenu-1-4">
-                                            <li class="nav-item"><a href="javascript:void(0)">Blog Grid Sidebar</a>
-                                            </li>
-                                            <li class="nav-item"><a href="javascript:void(0)">Blog Single</a></li>
-                                            <li class="nav-item"><a href="javascript:void(0)">Blog Single
-                                                    Sibebar</a></li>
+                                            <li class="nav-item">
+                                <a href="javascript:void(0)" onClick={handleOpen} class="page-scroll active"> Admin Login</a>
+                            </li>
                                         </ul>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="javascript:void(0)"  aria-label="Toggle navigation">Contact</a>
-                                    </li> */}
+                                    </div>:<div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
+                                        <ul id="nav" class="navbar-nav ms-auto">
+                                            <div class="nav-item">
+                                                <a href="#home" class="page-scroll active"
+                                                    aria-label="Toggle navigation">Home</a>
+                                            </div>
+                                            <div class="nav-item">
+                                            <a href="javascript:void(0)" onClick={handleOpen} class="page-scroll active"> Admin Login</a>
+                                            </div>
+                                       
                                         </ul>
-                                    </div>
-                                    <div class="button add-list-button">
-                                        <a href="javascript:void(0)" onClick={handleOpen} class="btn">Admin Login</a>
-                                    </div>
+                                    </div>}
+                                   
+                                    {/* <div class="button add-list-button">
+                                        <a href="javascript:void(0)" onClick={handleOpen} class="btn">aaAdmin Login</a>
+                                    </div> */}
                                 </nav>
 
                             </div>
@@ -160,7 +153,7 @@ function Home(props) {
                             <div class="hero-content">
                                 <h1 class="wow fadeInLeft" data-wow-delay=".4s">SriQR.com</h1>
                                 <p class="wow fadeInLeft" data-wow-delay=".6s">No Que With QR Code.</p>
-                                 <Grid item xs={6}>
+                                <Grid item xs={6}>
                                     <div style={{ width: 370 }}>
                                         <FormControl className={classes.formControl} fullWidth="true"
                                         >
@@ -172,25 +165,25 @@ function Home(props) {
                                                 label="Select Park"
                                                 // value={formik.values.parkId}
                                                 onChange={(e) => setParkId(e.target.value)}
-                                                
-                                                // error={formik.touched.parkId && Boolean(formik.errors.parkId)}
-                                                // helperText={formik.touched.parkId && formik.errors.parkId}
+
+                                            // error={formik.touched.parkId && Boolean(formik.errors.parkId)}
+                                            // helperText={formik.touched.parkId && formik.errors.parkId}
                                             >
                                                 <MenuItem value="">
                                                     <em>None</em>
                                                 </MenuItem>
 
                                                 {parkList.map(({ _id, parkName }) => (
-                                    <MenuItem key={_id} value={_id}>{parkName}
-                                        
-                                    </MenuItem>
+                                                    <MenuItem key={_id} value={_id}>{parkName}
+
+                                                    </MenuItem>
                                                 ))}
                                             </Select>
                                         </FormControl>
                                     </div>
-                                </Grid> 
+                                </Grid>
                                 <div class="button wow fadeInLeft" data-wow-delay=".8s">
-                                   
+
                                     <a href="javascript:void(0)" class="btn" onClick={handleRedirect}><i class="lni lni-apple"></i> Book Your Ticket</a>
                                     {/* <a href="javascript:void(0)" class="btn btn-alt"><i class="lni lni-play-store"></i> Google
                                 Play</a> */}
