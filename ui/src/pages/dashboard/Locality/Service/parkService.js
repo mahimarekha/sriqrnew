@@ -3,6 +3,9 @@ const ParkService = {
   getAllPark() {
     return requests.get(`/park/list`);
   },
+  getParks(body){
+    return requests.post('/park/get',body); 
+  },
   cretePark(body){
     return requests.post('/park/add',body); 
   },
@@ -29,6 +32,7 @@ const ParkService = {
   addAllProfileId(body) {
     return requests.post(`/park/listbyprofileid`,body);
   },
+  
 
 };
 

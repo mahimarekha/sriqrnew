@@ -52,6 +52,12 @@ let structure = [
     link: "/app/bookingreport",
     icon: <HowToVoteSharp />,
   },
+  {
+    id: 3,
+    label: "Reports",
+    link: "/app/report",
+    icon: <SupervisedUserCircle />,
+  },
 ];
 
 const userDetails = JSON.parse(localStorage.getItem("userDetail"));

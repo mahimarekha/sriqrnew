@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import classnames from "classnames";
 import BookingReport from "../../pages/dashboard/BookingReport"
+import Report from "../../pages/dashboard/report"
 import ProfileRegistration from "../../pages/dashboard/ProfileRegistration"
 import Park from "../../pages/dashboard/Park"
 import {Box, IconButton, Link} from '@material-ui/core'
@@ -52,6 +53,7 @@ function Layout(props) {
             <div className={classes.fakeToolbar} />
             <Switch>
             <Route path="/app/bookingreport" component={BookingReport} />
+            <Route path="/app/report" component={Report} />
             <Route path="/app/profileregistration" component={ProfileRegistration} />
               <Route path="/app/park" component={Park} />
               <Route path="/app/typography" component={Typography} />

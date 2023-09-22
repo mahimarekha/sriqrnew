@@ -104,10 +104,7 @@ export default function ProfileSRegistration(props) {
     setOpen(true);
   };
   useEffect(() => {
-   
     return () => {
-        
-
     }
 }, []);
 

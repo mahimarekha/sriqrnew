@@ -22,7 +22,7 @@ import PageTitle from "../../components/PageTitle/PageTitle";
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 const StyledTableCell = withStyles((theme) => ({
     head: {
-        backgroundColor: "#857e7ef7",
+        backgroundColor: "rgb(255, 107, 129)",
         color: theme.palette.common.white,
     },
     body: {
@@ -46,6 +46,7 @@ export default function Park() {
          'Shooting Fee', 'Walker Fee', 'Edit', 'Delete', 'QR-Code'];
     const classes = useStyles();
     const [parkList, setParkList] = useState([]);
+    const [getParksList, setParks] = useState([]);
     const [qrCode, setQrCode] = useState([]);
     const [open, setOpen] = React.useState(false);
     const [pg, setpg] = React.useState(0);
@@ -151,6 +152,7 @@ export default function Park() {
     }
     useEffect(() => {
        // getParkList();
+    //    getParks();
        getProfileId();
        // getQrCode()
         return () => {
@@ -167,15 +169,7 @@ export default function Park() {
         });
     }
   
-    const getParkList = () => {
-        const userDetails = JSON.parse(localStorage.getItem("userDetail"));
-        debugger
-        ParkService.getAllPark(userDetails.profileId).then((res) => {
-            setParkList(res);
-        }).catch((err) => {
-            // setError(err.message);
-        });
-    }
+ 
     const getProfileId = ()=>{
         const userDetails = JSON.parse(localStorage.getItem("userDetail"));
 console.log(userDetails.role)
@@ -189,9 +183,9 @@ console.log(userDetails.role)
     });
 }
     const getQrCode = (data) => {
-        debugger
+       
         ParkService.qrCode(data._id).then((res) => {
-            debugger
+            
             if(res){
                 const base64Data = res.image.replace(/^data:image\/\w+;base64,/, '');
                 const imageBuffer = Buffer.from(base64Data, 'base64');
@@ -247,7 +241,7 @@ console.log(userDetails.role)
         onSubmit: (values, { resetForm }) => {
             const userDetails = JSON.parse(localStorage.getItem("userDetail"));
             values.profileRegistrationId = userDetails.profileId;
-            debugger
+           
             if (park._id) {
                 ParkService.upadePark(values).then((res) => {
                     handleClose();
@@ -259,7 +253,7 @@ console.log(userDetails.role)
                 });
             }
             else {
-                debugger
+                
                 console.log(values)
                 // values.holidayDays = holidays;
                 const objectData = Object.keys(holidays).map(key => {

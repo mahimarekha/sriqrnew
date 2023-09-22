@@ -11,6 +11,7 @@ dayjs.extend(utc);
 
 const addProfileRegistration = async (req, res) => {
     try {
+      
       const isEmailAdded = await ProfileRegistration.findOne({ email: req.body.email });
       if (isEmailAdded) {
         return res.status(403).send({
@@ -29,17 +30,19 @@ const addProfileRegistration = async (req, res) => {
   };
   const loginProfileRegistration = async (req, res) => {
     try {
-      
+
       const profileRegistration = await ProfileRegistration.findOne({ email: req.body.email });
       console.log(profileRegistration)
       if (profileRegistration && bcrypt.compareSync(req.body.password, profileRegistration.password)) {
         const token = signInToken(profileRegistration);
-        res.send({
+        
+        res.send({ 
           token,
           email:profileRegistration.email,
           _id : profileRegistration._id,
            role:profileRegistration.role,
           profileId: profileRegistration._id, 
+          
         });
       } else {
         res.status(401).send({

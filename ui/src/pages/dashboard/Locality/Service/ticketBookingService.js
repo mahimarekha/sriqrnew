@@ -26,7 +26,10 @@ const TicketBookingService = {
   getAllProfileId(body) {
     return requests.post(`/ticketbooking/profileid`,body);
   },
-  
+  // router.post('/report', getTicketBookingList);
+  getTicketBookingList(body){
+    return requests.post(`/ticketbooking/report`,body);
+  }
 
 };
 

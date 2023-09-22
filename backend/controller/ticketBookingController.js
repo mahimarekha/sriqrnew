@@ -47,8 +47,61 @@ const addTicketBooking = async (req, res) => {
   };
 const findTicketBookingList=async(req, res)=>{
   let preparePost ={};
+
+ 
   try {
     const ticketBooking = await TicketBooking.find(preparePost);
+   
+    res.send(ticketBooking);
+  } catch (err) {
+    res.status(500).send({
+      message: err.message,
+    });
+  }
+}
+const getTicketBookingList=async(req, res)=>{
+  let preparePost ={};
+
+  if(!req.body.parkId){
+  return  res.status(500).send({
+      message: 'Park Id is required',
+    });
+  }
+  if(req.body.parkId){
+    preparePost = {"parkId" : ObjectId(req.body.parkId)};
+
+  }
+  if (req.body.startDate && req.body.endDate) {
+    preparePost = { ...preparePost, ...{ "createdAt": { $gte: new Date(req.body.startDate), $lt: new Date(req.body.endDate) } } };
+  }
+  try {
+    console.log(preparePost)
+   // const ticketBooking = await TicketBooking.find(preparePost);
+    const ticketBooking = await TicketBooking.aggregate(
+      [
+        {
+          $match: preparePost
+        },
+        {
+          $group: {
+            _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+            documents: { $push: "$$ROOT" } // Save all fields in an array for each group
+          }
+        },
+        {
+          $project: {
+            _id: 0, // Exclude the "_id" field from the output
+            createdAt: "$_id", // Rename "_id" to "createdAt"
+            documents: 1 // Include the "documents" array in the output
+          }
+        },
+        {
+          $sort: {
+            createdAt: -1 // Sort the results by createdAt in ascending order
+          }
+        }
+      ]
+    );
     res.send(ticketBooking);
   } catch (err) {
     res.status(500).send({
@@ -130,4 +183,5 @@ const findTicketBookingList=async(req, res)=>{
     deleteTicketBooking,
     findTicketBookingList,
     getAllProfileId,
+    getTicketBookingList
   };

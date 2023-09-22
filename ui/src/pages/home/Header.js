@@ -43,6 +43,9 @@ function Header(props) {
   const handleOpen = () => {
     props.history.push('/sriqr/login') 
 };
+const handleChange=()=>{
+    props.history.push('/sriqr/profileregistration') 
+}
   return (
   
     <>
@@ -75,6 +78,11 @@ function Header(props) {
                                             <li class="nav-item">
                                 <a href="javascript:void(0)" onClick={handleOpen} class="page-scroll active"> Admin Login</a>
                             </li>
+                            <li class="nav-item">
+                                                <a href="javascript:void(0)" onClick={handleChange}  class="page-scroll active"
+                                                    aria-label="Toggle navigation">Profile Registration</a>
+                                            </li>
+                            
                                         </ul>
                                     </div>:<div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                         <ul id="nav" class="navbar-nav ms-auto">
@@ -85,7 +93,10 @@ function Header(props) {
                                             <div class="nav-item">
                                             <a href="javascript:void(0)" onClick={handleOpen} class="page-scroll active"> Admin Login</a>
                                             </div>
-                                       
+                                            <div class="nav-item">
+                                                <a href="javascript:void(0)" onClick={handleChange} class="page-scroll active"
+                                                    aria-label="Toggle navigation">Profile Registration</a>
+                                            </div>
                                         </ul>
                                     </div>}
                             {/* <div class="button add-list-button">

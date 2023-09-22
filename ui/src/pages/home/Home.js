@@ -65,6 +65,9 @@ function Home(props) {
     const handleOpen = () => {
         props.history.push('/sriqr/login')
     };
+    const handleChange=()=>{
+        props.history.push('/sriqr/profileregistration') 
+    }
     useEffect(() => {
         getParkList();
         return () => {
@@ -119,6 +122,10 @@ function Home(props) {
                                                     aria-label="Toggle navigation">Home</a>
                                             </li>
                                             <li class="nav-item">
+                                                <a href="#javascript:void(0)" onClick={handleChange} class="page-scroll active"
+                                                    aria-label="Toggle navigation">Profile Registration</a>
+                                            </li>
+                                            <li class="nav-item">
                                 <a href="javascript:void(0)" onClick={handleOpen} class="page-scroll active"> Admin Login</a>
                             </li>
                                         </ul>
@@ -130,6 +137,10 @@ function Home(props) {
                                             </div>
                                             <div class="nav-item">
                                             <a href="javascript:void(0)" onClick={handleOpen} class="page-scroll active"> Admin Login</a>
+                                            </div>
+                                            <div class="nav-item">
+                                                <a href="javascript:void(0)" onClick={handleChange} class="page-scroll active"
+                                                    aria-label="Toggle navigation">Profile Registration</a>
                                             </div>
                                        
                                         </ul>

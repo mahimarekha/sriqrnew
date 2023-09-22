@@ -21,6 +21,24 @@ const addPark = async (req, res) => {
       });
     }
   };
+
+ 
+  const getParks = async (req, res) => {
+    try {
+      let preparePost ={};
+      
+      if(req.body.profileRegistrationId){
+        preparePost = {"profileRegistrationId" : ObjectId(req.body.profileRegistrationId)};
+      }
+      const park = await Park.find(preparePost);
+      // const park = await Park.find(preparePost).populate("profileRegistrationId");
+      res.send(park);
+    } catch (err) {
+      res.status(500).send({
+        message: err.message,
+      });
+    }
+  };
   const loginPark = async (req, res) => {
     try {
       console.log(req.body.email)
@@ -200,5 +218,6 @@ const findParkList=async(req, res)=>{
     findParkList,
     loginPark,
     qrCode,
+    getParks,
     addAllProfileId
   };

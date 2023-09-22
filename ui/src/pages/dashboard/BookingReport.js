@@ -22,7 +22,7 @@ import PageTitle from "../../components/PageTitle/PageTitle";
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 const StyledTableCell = withStyles((theme) => ({
     head: {
-        backgroundColor: "#857e7ef7",
+        backgroundColor: "rgb(255, 107, 129)",
         color: theme.palette.common.white,
     },
     body: {
@@ -174,7 +174,7 @@ console.log(userDetails.role)
 
    TicketBookingService.getAllProfileId({profileRegistrationId:result }).then((res) => {
             setTicketBookingList(res);
-            debugger
+            
     }).catch((err) => {
         // setError(err.message);
     });

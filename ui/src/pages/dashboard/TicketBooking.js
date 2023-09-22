@@ -103,8 +103,6 @@ export default function TicketBooking(props) {
             <RemoveIcon style={{ cursor: 'pointer', width: "18px", height: "18px", }} onClick={onDecrement} />
             <span style={{ fontSize: '16px', padding: '5px' }}>{quantity}</span>
             <AddIcon style={{ cursor: 'pointer', width: "18px", height: "18px", }} onClick={onIncrement} />
-
-
           </div>
 
           {/* <div>
