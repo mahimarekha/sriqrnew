@@ -1,4 +1,5 @@
 const TicketBooking = require('../models/TicketBooking');
+var QRCode = require('qrcode')
 const bcrypt = require('bcryptjs');
 const dayjs = require('dayjs');
 const utc = require('dayjs/plugin/utc');
@@ -7,13 +8,36 @@ const fs = require('fs');
 var ObjectId = require('mongodb').ObjectID;
 const { signInToken, tokenForVerify, sendEmail } = require('../config/auth');
 dayjs.extend(utc);
+
+const getDetails =(inputArray)=>{
+  const resultObject = {};
+
+// Loop through the array and populate the object
+for (const item of inputArray) {
+  resultObject[item.name] = item.quantity;
+}
+ return resultObject;
+}
 const addTicketBooking = async (req, res) => {
     try {
       const newTicketBooking = new TicketBooking(req.body);
-      await newTicketBooking.save();
-      res.status(200).send({
-        message: 'TicketBooking Added Successfully!',
-      });
+     const bookingDetails= await newTicketBooking.save();
+
+const orderDetails = {
+  mobile:bookingDetails.mobile,
+  parkName:req.body.parkName,
+  date:new Date(),
+...getDetails(bookingDetails.fee)
+}
+
+      QRCode.toDataURL(`${JSON.stringify(orderDetails)}`, function (err, url) {
+       
+         res.send( { image:url,message: 'TicketBooking Added Successfully!', });
+  
+      })
+      // res.status(200).send({
+      //   message: 'TicketBooking Added Successfully!',
+      // });
     } catch (err) {
       res.status(500).send({
         message: err.message,
@@ -72,7 +96,7 @@ const getTicketBookingList=async(req, res)=>{
 
   }
   if (req.body.startDate && req.body.endDate) {
-    preparePost = { ...preparePost, ...{ "createdAt": { $gte: new Date(req.body.startDate), $lt: new Date(req.body.endDate) } } };
+    preparePost = { ...preparePost, ...{ "createdAt": { $gte: new Date(req.body.startDate), $lte: new Date(req.body.endDate) } } };
   }
   try {
     console.log(preparePost)

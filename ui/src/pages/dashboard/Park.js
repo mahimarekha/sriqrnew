@@ -150,6 +150,7 @@ export default function Park() {
         setrpg(parseInt(event.target.value, 10));
         setpg(0);
     }
+  
     useEffect(() => {
        // getParkList();
     //    getParks();
@@ -161,6 +162,7 @@ export default function Park() {
            
         }
     }, []);
+    
     const getTicketBookingList = () => {
         TicketBookingService.getAllTicketBooking().then((res) => {
             setTicketBookingList(res);
@@ -220,15 +222,29 @@ console.log(userDetails.role)
     const onSubmit = data => {
         console.log(JSON.stringify(data, null, 2));
     };
+    
     const editPark = (park) => {
+        debugger
         setPark(park);
         handleOpen();
+        setHolidaysState({
+        mon: park.holidayDays.includes("mon"),
+        tue: park.holidayDays.includes("tue"),
+        wed: park.holidayDays.includes("wed"),
+        thu: park.holidayDays.includes("thu"),
+        fri: park.holidayDays.includes("fri"),
+        sat: park.holidayDays.includes("sat"),
+        sun: park.holidayDays.includes("sun"),
+    })
+
     }
+ 
     const deletePark = (parkdelete) => {
         if (parkdelete) {
             ParkService.deletePark(parkdelete).then((res) => {
                 //getParkList();
                 getProfileId()
+                onSubmit()
             }).catch((err) => {
             });
         }
@@ -241,7 +257,11 @@ console.log(userDetails.role)
         onSubmit: (values, { resetForm }) => {
             const userDetails = JSON.parse(localStorage.getItem("userDetail"));
             values.profileRegistrationId = userDetails.profileId;
-           
+            const objectData = Object.keys(holidays).map(key => {
+                return holidays[key] ? key : '';
+            })
+            values.holidayDays = objectData.filter(item => item !== "").toString();
+
             if (park._id) {
                 ParkService.upadePark(values).then((res) => {
                     handleClose();
@@ -256,6 +276,7 @@ console.log(userDetails.role)
                 
                 console.log(values)
                 // values.holidayDays = holidays;
+                debugger
                 const objectData = Object.keys(holidays).map(key => {
                     return holidays[key] ? key : '';
                 })

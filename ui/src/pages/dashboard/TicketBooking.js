@@ -72,6 +72,14 @@ export default function TicketBooking(props) {
     );
 
   };
+  const getDay = () => {
+    const currentDate = new Date();
+    const currentDayNumber = currentDate.getDay();
+   
+    const daysOfWeek = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
+    const currentDayName = daysOfWeek[currentDayNumber];
+    return currentDayName;
+}
   const handleOpen = () => {
     props.history.push('/app/studentregistration/add')
   };
@@ -136,45 +144,78 @@ export default function TicketBooking(props) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
-  const getProfileIdList = () => {
-    const userDetails = JSON.parse(localStorage.getItem("userDetail"));
-    console.log(userDetails.role)
+  // const getProfileIdList = () => {
+    
+  //   const userDetails = JSON.parse(localStorage.getItem("userDetail"));
+  //   console.log(userDetails.role)
 
-    const result = userDetails.role === "admin" ? null : userDetails.profileId;
-    console.log(result)
+  //   const result = userDetails.role === "admin" ? null : userDetails.profileId;
+  //   console.log(result)
+  //   
+  //   TicketBookingService.getAllProfileId({ profileRegistrationId: result }).then((res) => {
+     
+  //     setTicketBookingList(res);
 
-    TicketBookingService.getAllProfileId({ profileRegistrationId: result }).then((res) => {
-      setTicketBookingList(res);
-      debugger
-    }).catch((err) => {
-      // setError(err.message);
-    });
-  }
+  //   }).catch((err) => {
+  //     // setError(err.message);
+  //   });
+  // }
+
   const bookTickets = () => {
 
-    console.log(fee)
+    console.log(ticketBooking.holidayDays)
     const getBookedDetails = fee.filter(feeDetails => feeDetails.quantity > 0);
     const totalSum = getBookedDetails.reduce((sum, item) => sum + item.price * item.quantity, 0);
+    const day = getDay();
+    debugger
+    if (ticketBooking.holidayDays && ticketBooking.holidayDays.includes(day)) {
+      alert("You cant procced to book the ticket. today is holiday ");
+      return
+    }
+    if(getBookedDetails.length<=0){
+      alert("You need to select atleast one field");
+      return
+    }
+
     const ticketDetails = {
       fee: getBookedDetails,
       totalAmount: totalSum,
       parkId: parkId,
+      parkName:ticketBooking.parkName,
       mobile: mobile,
       paymentStatus: "pending",
       profileRegistrationId: profileRegistrationId,
     }
 
     TicketBookingService.creteTicketBooking(ticketDetails).then((res) => {
-
+      
       setMobile('');
       getByIdList();
+      
       // setProfileRegistrationId();
       // getTicketBookingList();
       // resetForm();
       // handleClose();
-      getProfileIdList();
+      // getProfileIdList();
       alert(" TicketBooking Added Successfully.");
+      if(res){
+        const base64Data = res.image.replace(/^data:image\/\w+;base64,/, '');
+        const imageBuffer = Buffer.from(base64Data, 'base64');
 
+        // Create a blob URL for the binary buffer
+        const blob = new Blob([imageBuffer]);
+        const blobUrl = URL.createObjectURL(blob);
+    
+        // Create a link element and trigger the download
+        const link = document.createElement('a');
+        link.href = blobUrl;
+        link.download = mobile+'.png'; // Change the file name and extension
+        link.click();
+    
+        // Clean up the blob URL
+        URL.revokeObjectURL(blobUrl);
+
+    }
     })
       .catch((err) => {
 
@@ -192,7 +233,7 @@ export default function TicketBooking(props) {
       const park = [];
       if (res) {
         setProfileRegistrationId(res.profileRegistrationId);
-        {
+        
           Object.keys(res).map(key => {
             if (key === "seniorCitizen" && res[key]) {
               park.push(
@@ -239,7 +280,7 @@ export default function TicketBooking(props) {
 
 
           )
-        }
+          
         setFee(park);
         setTicketBooking(res);
 
