@@ -15,4 +15,5 @@ router.post('/find',isAuth, findParkList);
 router.get('/list', getAllPark);
 router.get('/:id', getParkById);
 router.get('/qr/:id', qrCode);
+router.delete('/:id', deletePark);
 module.exports = router;

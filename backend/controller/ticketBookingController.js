@@ -23,18 +23,20 @@ const addTicketBooking = async (req, res) => {
       const newTicketBooking = new TicketBooking(req.body);
      const bookingDetails= await newTicketBooking.save();
 
-const orderDetails = {
-  mobile:bookingDetails.mobile,
-  parkName:req.body.parkName,
-  date:new Date(),
-...getDetails(bookingDetails.fee)
-}
+// const orderDetails = {
+//   mobile:bookingDetails.mobile,
+//   parkName:req.body.parkName,
+//   date:new Date(),
+// ...getDetails(bookingDetails.fee)
+// }
 
-      QRCode.toDataURL(`${JSON.stringify(orderDetails)}`, function (err, url) {
+//       QRCode.toDataURL(`${JSON.stringify(orderDetails)}`, function (err, url) {
        
-         res.send( { image:url,message: 'TicketBooking Added Successfully!', });
+//          res.send( { image:url,message: 'TicketBooking Added Successfully!', id:bookingDetails._id});
   
-      })
+//       })
+      res.send( { image:'',message: 'TicketBooking Added Successfully!', id:bookingDetails._id});
+  
       // res.status(200).send({
       //   message: 'TicketBooking Added Successfully!',
       // });
@@ -44,6 +46,8 @@ const orderDetails = {
       });
     }
   };
+
+
 
   const addAllTicketBooking = async (req, res) => {
     try {
@@ -77,6 +81,51 @@ const findTicketBookingList=async(req, res)=>{
     const ticketBooking = await TicketBooking.find(preparePost);
    
     res.send(ticketBooking);
+  } catch (err) {
+    res.status(500).send({
+      message: err.message,
+    });
+  }
+}
+
+const getQRCodeByStatus=async(req, res)=>{
+
+
+  if(!req.body.bookingId){
+    res.status(500).send({
+      message: "Booking Id is required",
+    });
+  }
+  let preparePost ={
+    _id:req.body.bookingId,
+    paymentStatus:'TXN_SUCCESS'
+  };
+
+ 
+  try {
+    const ticketBooking = await TicketBooking.find(preparePost).populate("parkId");
+   
+    if(ticketBooking.length>0){
+      const bookingDetails = ticketBooking[0];
+      const orderDetails = {
+        mobile:bookingDetails.mobile,
+        parkName:bookingDetails.parkId.parkName,
+        date:new Date(),
+      ...getDetails(bookingDetails.fee)
+      };
+            QRCode.toDataURL(`${JSON.stringify(orderDetails)}`, function (err, url) {
+             
+               res.send( { status:true, image:url,message: 'Your transation successfully completed , your booking id is'+bookingDetails.invoice+'.', id:bookingDetails._id});
+        
+            })
+
+    }else{
+  res.send({
+        status:false,
+        message:"Your transation is failed please contact support team"
+      });
+    }
+   
   } catch (err) {
     res.status(500).send({
       message: err.message,
@@ -197,6 +246,7 @@ const getTicketBookingList=async(req, res)=>{
       });
     }
   };
+  
 
   module.exports = {
     addTicketBooking,
@@ -207,5 +257,6 @@ const getTicketBookingList=async(req, res)=>{
     deleteTicketBooking,
     findTicketBookingList,
     getAllProfileId,
-    getTicketBookingList
+    getTicketBookingList,
+    getQRCodeByStatus
   };

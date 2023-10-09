@@ -29,7 +29,11 @@ const TicketBookingService = {
   // router.post('/report', getTicketBookingList);
   getTicketBookingList(body){
     return requests.post(`/ticketbooking/report`,body);
-  }
+  },
+  paymentProcess(body){
+    return requests.post(`/ticketbooking/payment`,body);
+  },
+ 
 
 };
 

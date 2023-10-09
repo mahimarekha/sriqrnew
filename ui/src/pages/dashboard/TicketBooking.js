@@ -160,7 +160,50 @@ export default function TicketBooking(props) {
   //     // setError(err.message);
   //   });
   // }
-
+  function isDate(val) {
+    // Cross realm comptatible
+    return Object.prototype.toString.call(val) === '[object Date]'
+  }
+  function isObj(val) {
+    return typeof val === 'object'
+  }
+  function stringifyValue(val) {
+    if (isObj(val) && !isDate(val)) {
+      return JSON.stringify(val)
+    } else {
+      return val
+    }
+  }
+  function buildForm({ action, params }) {
+    const form = document.createElement('form')
+    form.setAttribute('method', 'post')
+    form.setAttribute('action', action)
+  
+    Object.keys(params).forEach(key => {
+      const input = document.createElement('input')
+      input.setAttribute('type', 'hidden')
+      input.setAttribute('name', key)
+      input.setAttribute('value', stringifyValue(params[key]))
+      form.appendChild(input)
+    })
+  
+    return form
+  }
+  function post(details) {
+    const form = buildForm(details)
+    document.body.appendChild(form)
+    form.submit()
+    form.remove()
+  }
+const payment=(values)=>{
+  TicketBookingService.paymentProcess(values).then((response)=>{
+    var information={
+      action:"https://securegw-stage.paytm.in/order/process",
+      params:response
+  }
+post(information)
+  })
+}
   const bookTickets = () => {
 
     console.log(ticketBooking.holidayDays)
@@ -186,36 +229,41 @@ export default function TicketBooking(props) {
       paymentStatus: "pending",
       profileRegistrationId: profileRegistrationId,
     }
-
+    debugger
     TicketBookingService.creteTicketBooking(ticketDetails).then((res) => {
       
       setMobile('');
-      getByIdList();
-      
+      payment({amount:totalSum, mobile:mobile, id:res.id})
+      //getByIdList();
+  
+
+
+
       // setProfileRegistrationId();
       // getTicketBookingList();
       // resetForm();
       // handleClose();
       // getProfileIdList();
-      alert(" TicketBooking Added Successfully.");
-      if(res){
-        const base64Data = res.image.replace(/^data:image\/\w+;base64,/, '');
-        const imageBuffer = Buffer.from(base64Data, 'base64');
-
-        // Create a blob URL for the binary buffer
-        const blob = new Blob([imageBuffer]);
-        const blobUrl = URL.createObjectURL(blob);
+      // alert(" TicketBooking Added Successfully.");
     
-        // Create a link element and trigger the download
-        const link = document.createElement('a');
-        link.href = blobUrl;
-        link.download = mobile+'.png'; // Change the file name and extension
-        link.click();
-    
-        // Clean up the blob URL
-        URL.revokeObjectURL(blobUrl);
+    //   if(res){
+    //     const base64Data = res.image.replace(/^data:image\/\w+;base64,/, '');
+    //     const imageBuffer = Buffer.from(base64Data, 'base64');
 
-    }
+    //     // Create a blob URL for the binary buffer
+    //     const blob = new Blob([imageBuffer]);
+    //     const blobUrl = URL.createObjectURL(blob);
+    
+    //     // Create a link element and trigger the download
+    //     const link = document.createElement('a');
+    //     link.href = blobUrl;
+    //     link.download = mobile+'.png'; // Change the file name and extension
+    //     link.click();
+    
+    //     // Clean up the blob URL
+    //     URL.revokeObjectURL(blobUrl);
+
+    // }
     })
       .catch((err) => {
 

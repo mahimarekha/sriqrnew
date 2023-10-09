@@ -297,11 +297,7 @@ export default function Report() {
                                                 <TableCell className="pl-3 fw-normal" >{report[key] ? report[key] : 0}</TableCell>
                                             ))}
 
-                                            {/* <TableCell className="pl-3 fw-normal" >{report.Date}</TableCell>
-                  <TableCell className="pl-3 fw-normal" >{report.count}</TableCell>
-                     <TableCell className="pl-3 fw-normal" >{report.present}</TableCell>
-                     <TableCell className="pl-3 fw-normal" >{report.absent}</TableCell>
-                     */}
+                                           
                                         </TableRow>
 
                                     ))}

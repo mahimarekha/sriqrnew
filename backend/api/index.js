@@ -3,6 +3,7 @@
 var fs = require('fs');
 const express = require('express');
 const cors = require('cors');
+const bodyParser = require('body-parser')
 const helmet = require('helmet');
 const path = require('path');
 const mongoose = require("mongoose");
@@ -19,6 +20,7 @@ const app = express();
 // See: https://github.com/nfriedly/express-rate-limit
 // app.enable('trust proxy');
 app.set('trust proxy', 1);
+const port=5000
 app.use(express.static("public"));
 app.use(express.static("client"));
 app.use(express.json({ limit: '4mb' }));
@@ -29,6 +31,7 @@ app.use(helmet({
   crossOriginResourcePolicy: false,
 }));
 app.use(cors());
+app.use(bodyParser.json())
 let bucket;
 mongoose.connection.on("connected", () => {
   var db = mongoose.connections[0].db;

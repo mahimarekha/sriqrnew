@@ -40,6 +40,8 @@ import { Category } from "@material-ui/icons";
 import Login from "../../pages/login/Login";
 import LoginHeader from "../LoginHeader/LoginHeader";
 import ProfileRegistration from "../../pages/dashboard/ProfileRegistration";
+import Success from "../../pages/dashboard/Success";
+
 // import SchoolRegistration from "../../pages/dashboard/ProfileRegistration";
 
 function LoginLayout(props) {
@@ -69,6 +71,8 @@ function LoginLayout(props) {
               {/* <Route path="/montessori/schoolregistration" component={SchoolRegistration} /> */}
               <Route path="/sriqr/login" component={Login} />
               <Route path="/sriqr/profileregistration" component={ProfileRegistration} />
+              <Route path="/sriqr/success" component={Success} />
+
               <Route path="/sriqr/dashboard" component={Layout} />
             </Switch>
             <Box

@@ -8,6 +8,7 @@ import {
 import classnames from "classnames";
 import BookingReport from "../../pages/dashboard/BookingReport"
 import Report from "../../pages/dashboard/report"
+import Success from "../../pages/dashboard/Success"
 import ProfileRegistration from "../../pages/dashboard/ProfileRegistration"
 import Park from "../../pages/dashboard/Park"
 import {Box, IconButton, Link} from '@material-ui/core'
@@ -55,6 +56,7 @@ function Layout(props) {
             <Route path="/app/bookingreport" component={BookingReport} />
             <Route path="/app/report" component={Report} />
             <Route path="/app/profileregistration" component={ProfileRegistration} />
+            <Route path="/app/success" component={Success} />
               <Route path="/app/park" component={Park} />
               <Route path="/app/typography" component={Typography} />
               <Route path="/app/notifications" component={Notifications} />

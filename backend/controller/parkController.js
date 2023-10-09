@@ -170,6 +170,7 @@ const findParkList=async(req, res)=>{
       res.status(400).send({ message: err });
     }
   };
+  
   const deletePark = (req, res) => {
     Park.deleteOne({ _id: req.params.id }, (err) => {
       if (err) {

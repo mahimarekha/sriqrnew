@@ -19,6 +19,9 @@ const ParkService = {
   getParkById(id) {
     return requests.get(`/park/${id}` );
   },
+  getQRcodebyById(body) {
+    return requests.post(`/ticketbooking/getqrcodebystatus`,body );
+  },
 
   qrCode(id) {
     return requests.get(`/park/qr/${id}` );

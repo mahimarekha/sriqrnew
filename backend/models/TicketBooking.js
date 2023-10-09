@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
+const AutoIncrement = require('mongoose-sequence')(mongoose);
+
 const ticketBookingSchema = new mongoose.Schema(
   {
     fee:   [{
@@ -34,6 +36,19 @@ const ticketBookingSchema = new mongoose.Schema(
   }
 );
 
-const TicketBooking = mongoose.models.TicketBooking || mongoose.model('TicketBooking', ticketBookingSchema);
 
+
+const TicketBooking =
+  mongoose.models.TicketBooking ||
+  mongoose.model(
+    'TicketBooking',
+    ticketBookingSchema.plugin(AutoIncrement, {
+      inc_field: 'invoice',
+      start_seq: 10000,
+    })
+  );
 module.exports = TicketBooking;
+
+// const TicketBooking = mongoose.models.TicketBooking || mongoose.model('TicketBooking', ticketBookingSchema);
+
+// module.exports = TicketBooking;
