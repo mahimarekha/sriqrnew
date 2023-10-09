@@ -12,7 +12,7 @@ const {getTicketBookingList,
     addTicketBooking, addAllTicketBooking, getAllTicketBooking, updateTicketBooking,
     deleteTicketBooking,findTicketBookingList, getTicketBookingById, getAllProfileId
 } = require('../controller/ticketBookingController');
-const PaytmChecksum=require('../../Paytm_Node_Checksum-master/PaytmChecksum')
+const PaytmChecksum=require('../controller/PaytmChecksum')
 
 router.post('/add', addTicketBooking);
 router.post('/profileid',isAuth, getAllProfileId);
@@ -87,8 +87,8 @@ router.post('/callback', (req, res) => {
                             const bookingDetails =  await TicketBooking.updateOne({ _id: result.ORDERID }, { $set: { paymentStatus: result.STATUS } })
                             const newTransactionDetailes = new TransactionDetailes(result);
                             await newTransactionDetailes.save();
-                            console.log(orderdetails)
-                            res.redirect(`http://localhost:3000/#/paymentstatus/${result.ORDERID}/${orderdetails.parkId}`)
+                            
+                            res.redirect(`${process.env.QR_CODE_URL}/#/paymentstatus/${result.ORDERID}/${orderdetails.parkId}`)
 
                         } catch (error) {
                             console.log(error);
@@ -99,8 +99,8 @@ router.post('/callback', (req, res) => {
                           const bookingDetails =  await TicketBooking.updateOne({ _id: result.ORDERID }, { $set: { paymentStatus: result.STATUS } })
                             const newTransactionDetailes = new TransactionDetailes(result);
                             await newTransactionDetailes.save();
-                            console.log(orderdetails)
-                            res.redirect(`http://localhost:3000/#/paymentstatus/${result.ORDERID}/${orderdetails.parkId}`)
+                            
+                            res.redirect(`${process.env.QR_CODE_URL}/#/paymentstatus/${result.ORDERID}/${orderdetails.parkId}`)
                         } catch (error) {
                             console.log(error);
                         }
