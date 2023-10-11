@@ -7,8 +7,7 @@ const formidable=require('formidable')
 const { isAuth, isAdmin } = require('../config/auth');
 const router = express.Router();
 const {v4:uuidv4}=require('uuid')
-const {getTicketBookingList,
-    getQRCodeByStatus,
+const {getTicketBookingList,getQRCodeByStatus,getQRCodeByMobile,
     addTicketBooking, addAllTicketBooking, getAllTicketBooking, updateTicketBooking,
     deleteTicketBooking,findTicketBookingList, getTicketBookingById, getAllProfileId
 } = require('../controller/ticketBookingController');
@@ -22,6 +21,7 @@ router.post('/find',isAuth, findTicketBookingList);
 
 router.post('/report', getTicketBookingList);
 router.post('/getqrcodebystatus', getQRCodeByStatus);
+router.post('/getqrcodebymobile', getQRCodeByMobile);
 router.get('/list',isAuth, getAllTicketBooking);
 router.get('/:id', getTicketBookingById);
 const paymentStatusUpdate=  (id, status, transactionDetailes) => {

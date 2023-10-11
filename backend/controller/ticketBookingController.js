@@ -2,13 +2,14 @@ const TicketBooking = require('../models/TicketBooking');
 var QRCode = require('qrcode')
 const bcrypt = require('bcryptjs');
 const dayjs = require('dayjs');
+const timezone = require('dayjs/plugin/timezone');
 const utc = require('dayjs/plugin/utc');
 const mongoose = require('mongoose');
 const fs = require('fs');
 var ObjectId = require('mongodb').ObjectID;
 const { signInToken, tokenForVerify, sendEmail } = require('../config/auth');
 dayjs.extend(utc);
-
+dayjs.extend(timezone)
 const getDetails =(inputArray)=>{
   const resultObject = {};
 
@@ -95,6 +96,7 @@ const getQRCodeByStatus=async(req, res)=>{
     res.status(500).send({
       message: "Booking Id is required",
     });
+    return;
   }
   let preparePost ={
     _id:req.body.bookingId,
@@ -123,6 +125,66 @@ const getQRCodeByStatus=async(req, res)=>{
   res.send({
         status:false,
         message:"Your transation is failed please contact support team"
+      });
+    }
+   
+  } catch (err) {
+    res.status(500).send({
+      message: err.message,
+    });
+  }
+}
+const getQRCodeByMobile=async(req, res)=>{
+
+
+  if(!req.body.mobile){
+    res.status(500).send({
+      message: "Mobile is required",
+    });
+    return;
+  }
+  const todayStart = dayjs().format('YYYY-MM-DD');
+  const todayEnd = dayjs().format('YYYY-MM-DD');
+
+  console.log( `${todayStart}T00:00:00.000Z`)
+  console.log(`${todayEnd}T23:59:00.000Z` )
+  let preparePost ={
+    mobile:req.body.mobile,
+    "createdAt": { $gte: `${todayStart}T00:00:00.000Z`, $lte:`${todayEnd}T23:59:00.000Z`}
+  };
+console.log(preparePost)
+ 
+  try {
+    const ticketBooking = await TicketBooking.find(preparePost).populate("parkId");
+    console.log(ticketBooking)
+   const finalData= [];
+    if(ticketBooking.length>0){
+      const bookingDetails = ticketBooking;
+      for (const key of ticketBooking) {
+       
+        const orderDetails = {
+          mobile:key.mobile,
+          parkName:key.parkId.parkName,
+          date:new Date(),
+        ...getDetails(key.fee)
+        };
+    const qrCode =   await  QRCode.toDataURL(`${JSON.stringify(orderDetails)}`);
+              // QRCode.toDataURL(`${JSON.stringify(orderDetails)}`, function (err, url) {
+               
+              //    res.send( { status:true, image:url,message: 'Your transation successfully completed , your booking id is'+bookingDetails.invoice+'.', id:bookingDetails._id});
+          
+              // })
+              finalData.push({ status:true, image:qrCode,message: 'Your transation successfully completed , your booking id is'+key.invoice+'.', id:key._id})
+             // console.log(qrCode)
+       
+      }
+      res.send( {ticketDetails:finalData,message: 'Your transation successfully completed'});
+
+    }else{
+  res.send({
+        status:false,
+        ticketDetails:[],
+        message:"No booking found"
       });
     }
    
@@ -258,5 +320,6 @@ const getTicketBookingList=async(req, res)=>{
     findTicketBookingList,
     getAllProfileId,
     getTicketBookingList,
-    getQRCodeByStatus
+    getQRCodeByStatus,
+    getQRCodeByMobile
   };

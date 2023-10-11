@@ -83,6 +83,9 @@ export default function TicketBooking(props) {
   const handleOpen = () => {
     props.history.push('/app/studentregistration/add')
   };
+  const handleOpens = () => {
+    props.history.push('/getqr')
+  };
   const sumOfTotal = () => {
     console.log(JSON.stringify(fee));
     const totalPrice = fee.reduce((sum, item) => sum + (item.price * item.quantity), 0);
@@ -506,6 +509,16 @@ style={{ width: '100%' }}
 
                 </CardContent>
               </Card>
+            </div>
+            <div style={{ marginTop: "2%" }}>
+              <Grid item xs={12}>
+                <div style={{ textAlign: 'left' }}>
+                {/* <a href="javascript:void(0)" class="btn" ><i class="lni lni-apple"></i> Book More Tickets</a> */}
+                {/* <PublicRoute path="/ticketbooking/:parkId" component={TicketBooking} /> */}
+
+                <a href="javascript:void(0)" onClick={handleOpens} class="page-scroll active"> Get QR</a>
+                </div>
+              </Grid>
             </div>
 
             <div style={{ marginTop: "2%" }}>

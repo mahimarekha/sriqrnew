@@ -118,12 +118,7 @@ const getByIdList = () => {
   alignItems="center">
 <Card >
 
-<CardHeader
-  
- 
-  
-
-/>
+<CardHeader/>
 <CardContent>
    <div style={{
     'text-align': 'center'

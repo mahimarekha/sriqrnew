@@ -33,7 +33,9 @@ const TicketBookingService = {
   paymentProcess(body){
     return requests.post(`/ticketbooking/payment`,body);
   },
- 
+  getQRcodeByMobile(body) {
+    return requests.post(`/ticketbooking/getqrcodebymobile`,body );
+  },
 
 };
 
