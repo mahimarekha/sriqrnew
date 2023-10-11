@@ -150,6 +150,7 @@ const getQRCodeByMobile=async(req, res)=>{
   console.log(`${todayEnd}T23:59:00.000Z` )
   let preparePost ={
     mobile:req.body.mobile,
+    paymentStatus:'TXN_SUCCESS',
     "createdAt": { $gte: `${todayStart}T00:00:00.000Z`, $lte:`${todayEnd}T23:59:00.000Z`}
   };
 console.log(preparePost)
