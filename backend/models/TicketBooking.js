@@ -25,6 +25,11 @@ const ticketBookingSchema = new mongoose.Schema(
         type: String,
         required: true,
       },
+      isTicketScanned : {
+        type: Boolean,
+        required: false,
+        default:false
+      },
       profileRegistrationId: {
         type:  mongoose.Schema.Types.ObjectId,
             ref: "ProfileRegistration",

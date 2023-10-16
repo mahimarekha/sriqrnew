@@ -19,6 +19,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
 import PaymentIcon from '@material-ui/icons/Payment';
+import Loader from './Loader';
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
@@ -39,7 +40,7 @@ const useStyles = makeStyles({
 });
 export default function TicketBooking(props) {
   const classes = useStyles();
-
+  const [loading, setLoading] = useState(true);
   const [ticketBooking, setTicketBooking] = useState({
     parkName: '',
   });
@@ -54,6 +55,7 @@ export default function TicketBooking(props) {
     // { id: 3, price: 20, quantity: 0 },
   ]);
   const [fee, setFee] = useState([]);
+ 
   const handleIncrement = (id) => {
     setFee(prevItems =>
       prevItems.map(item =>
@@ -84,7 +86,7 @@ export default function TicketBooking(props) {
     props.history.push('/app/studentregistration/add')
   };
   const handleOpens = () => {
-    props.history.push('/getqr')
+    props.history.push(`/getqr/${parkId}`)
   };
   const sumOfTotal = () => {
     console.log(JSON.stringify(fee));
@@ -96,6 +98,7 @@ export default function TicketBooking(props) {
   const Item = ({ name, price, quantity, onIncrement, onDecrement }) => {
     return (
       <>
+       {loading && <Loader />}
         <Grid item xs={4}>
 
           <div>
@@ -209,11 +212,21 @@ post(information)
 }
   const bookTickets = () => {
 
-    console.log(ticketBooking.holidayDays)
+    
     const getBookedDetails = fee.filter(feeDetails => feeDetails.quantity > 0);
     const totalSum = getBookedDetails.reduce((sum, item) => sum + item.price * item.quantity, 0);
     const day = getDay();
-    debugger
+    const phoneNumberRegex = /^\d{10}$/;
+
+
+    if(!mobile){
+      alert("Please enter mobile number");
+      return
+    }
+    if(!phoneNumberRegex.test(mobile)){
+      alert("Please enter valid mobile number");
+      return
+    }
     if (ticketBooking.holidayDays && ticketBooking.holidayDays.includes(day)) {
       alert("You cant procced to book the ticket. today is holiday ");
       return
@@ -283,6 +296,8 @@ post(information)
     ParkService.getParkById(parkId).then((res) => {
       const park = [];
       if (res) {
+     
+        setLoading(false);
         setProfileRegistrationId(res.profileRegistrationId);
         
           Object.keys(res).map(key => {
@@ -516,7 +531,7 @@ style={{ width: '100%' }}
                 {/* <a href="javascript:void(0)" class="btn" ><i class="lni lni-apple"></i> Book More Tickets</a> */}
                 {/* <PublicRoute path="/ticketbooking/:parkId" component={TicketBooking} /> */}
 
-                <a href="javascript:void(0)" onClick={handleOpens} class="page-scroll active"> Get QR</a>
+                <a style={{ fontWeight: 'bold',  color: '#ff6b81',  fontSize:'large' }}href="javascript:void(0)" onClick={handleOpens} class="page-scroll active"> Get QR</a>
                 </div>
               </Grid>
             </div>

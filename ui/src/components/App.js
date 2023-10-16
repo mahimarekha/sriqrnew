@@ -33,7 +33,7 @@ export default function App() {
         /> */}
        
         <PublicRoute path="/ticketbooking/:parkId" component={TicketBooking} />
-        <PublicRoute path="/getqr" component={Getqr} />
+        <PublicRoute path="/getqr/:parkId" component={Getqr} />
         {/* <PublicRoute path="/login" component={Login} /> */}
         <PublicRoute path="/home" component={Home} />
         

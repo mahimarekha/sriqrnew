@@ -21,6 +21,7 @@ for (const item of inputArray) {
 }
 const addTicketBooking = async (req, res) => {
     try {
+      req.body.paymentStatus = 'PENDING';
       const newTicketBooking = new TicketBooking(req.body);
      const bookingDetails= await newTicketBooking.save();
 
@@ -100,7 +101,8 @@ const getQRCodeByStatus=async(req, res)=>{
   }
   let preparePost ={
     _id:req.body.bookingId,
-    paymentStatus:'TXN_SUCCESS'
+    paymentStatus:'TXN_SUCCESS',
+    isTicketScanned : false,
   };
 
  
@@ -150,7 +152,9 @@ const getQRCodeByMobile=async(req, res)=>{
   console.log(`${todayEnd}T23:59:00.000Z` )
   let preparePost ={
     mobile:req.body.mobile,
+    parkId:req.body.parkId,
     paymentStatus:'TXN_SUCCESS',
+    isTicketScanned : false,
     "createdAt": { $gte: `${todayStart}T00:00:00.000Z`, $lte:`${todayEnd}T23:59:00.000Z`}
   };
 console.log(preparePost)
@@ -196,7 +200,7 @@ console.log(preparePost)
   }
 }
 const getTicketBookingList=async(req, res)=>{
-  let preparePost ={};
+  let preparePost ={ "paymentStatus" : "TXN_SUCCESS"};
 
   if(!req.body.parkId){
   return  res.status(500).send({
@@ -294,7 +298,7 @@ const getTicketBookingList=async(req, res)=>{
   };
   const getAllProfileId = async (req, res) => {
     try {
-      let preparePost ={};
+      let preparePost ={ "paymentStatus" : "TXN_SUCCESS"};
       if(req.body.profileRegistrationId){
         preparePost = {"profileRegistrationId" : ObjectId(req.body.profileRegistrationId)};
       }

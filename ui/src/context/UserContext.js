@@ -60,7 +60,6 @@ function loginUser(dispatch, login, password, history, setIsLoading, setError, r
       setError(null)
       setIsLoading(false)
       dispatch({ type: 'LOGIN_SUCCESS' })
-debugger
       history.push('/app/park') ;
        window.location.reload(false);
 
@@ -68,7 +67,7 @@ debugger
     }).catch((err) => {
       alert(err.response.data.message)
       setIsLoading(false);
-      history.push('/login')
+      history.push('/sriqr/login')
     });
   } 
 }

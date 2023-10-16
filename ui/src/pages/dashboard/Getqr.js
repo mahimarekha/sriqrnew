@@ -28,8 +28,8 @@ import { useParams } from "react-router-dom";
 // styles
 // import useStyles from "./styles";
 import Alert from '@material-ui/lab/Alert';
+import Loader from './Loader';
 
-// components
 import mock from "./mock";
 import Widget from "../../components/Widget/Widget";
 import PageTitle from "../../components/PageTitle/PageTitle";
@@ -49,6 +49,7 @@ import TicketBookingService from "./Locality/Service/ticketBookingService";
 export default function Getqr(props) {
     // const classes = useStyles();
     const { bookingId, parkId } = useParams();
+    const [loading, setLoading] = useState(true);
     var [error, setError] = useState(null);
     const [mobile, setMobile] = useState('');
     const [ticketDetails, setTicketDetails] = useState({ ticketDetails: [], message: '', status: false });
@@ -77,11 +78,17 @@ export default function Getqr(props) {
         props.history.push("/ticketbooking/" + parkId)
     };
     const getByMobileList = () => {
+        const phoneNumberRegex = /^\d{10}$/;
+
         if (!mobile) {
             alert("mobile number required");
             return
         }
-        TicketBookingService.getQRcodeByMobile({ mobile: mobile }).then((res) => {
+          if(!phoneNumberRegex.test(mobile)){
+            alert("Please enter valid mobile number");
+            return
+          }
+        TicketBookingService.getQRcodeByMobile({ mobile: mobile, parkId:parkId }).then((res) => {
             res.status = true;
             setTicketDetails(res);
 
@@ -201,7 +208,8 @@ export default function Getqr(props) {
 
                                 <div style={{ marginTop: "2%" }}>
                                     <Grid item xs={12}>
-                                        <div style={{ textAlign: 'center' }}>
+                                        <div style={{ textAlign: 'center' }}>   
+   
                                             <Button style={{ backgroundColor: 'rgb(255, 107, 129)', color: 'white', marginBottom: '20px' }} onClick={getByMobileList} variant="contained" >Get QR</Button>
                                         </div>
                                     </Grid>
