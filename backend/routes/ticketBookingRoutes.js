@@ -19,7 +19,7 @@ router.put('/:id',isAuth, updateTicketBooking);
 router.post('/all',isAuth, addAllTicketBooking);
 router.post('/find',isAuth, findTicketBookingList);
 
-router.post('/report', getTicketBookingList);
+router.post('/report',isAuth, getTicketBookingList);
 router.post('/getqrcodebystatus', getQRCodeByStatus);
 router.post('/getqrcodebymobile', getQRCodeByMobile);
 router.get('/list',isAuth, getAllTicketBooking);

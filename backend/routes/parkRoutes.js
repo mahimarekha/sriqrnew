@@ -5,7 +5,9 @@ const {
     addPark, addAllPark, getAllPark, updatePark,deletePark,findParkList,
      getParkById, loginPark, qrCode, addAllProfileId, getParks
 } = require('../controller/parkController');
-router.post('/add', addPark);
+const { isAuth, isAdmin } = require('../config/auth');
+
+router.post('/add',isAuth, addPark);
 router.post('/get', getParks);
 router.post('/login', loginPark);
 router.post('/listbyprofileid',isAuth, addAllProfileId);
@@ -15,5 +17,5 @@ router.post('/find',isAuth, findParkList);
 router.get('/list', getAllPark);
 router.get('/:id', getParkById);
 router.get('/qr/:id', qrCode);
-router.delete('/:id', deletePark);
+router.delete('/:id',isAuth, deletePark);
 module.exports = router;
