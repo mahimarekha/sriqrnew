@@ -297,7 +297,7 @@ const getTicketBookingList=async(req, res)=>{
           message: 'Booking Id is required.',
         });
       }
-    const result =  await TicketBooking.updateOne({ _id: req.params.id }, { $set: { isTicketScanned: req.body.isTicketScannned?req.body.isTicketScannned:true } });
+    const result =  await TicketBooking.updateOne({ _id: req.params.id }, { $set: { isTicketScanned: req.body.isTicketScannned} });
      let ticketBooking = await TicketBooking.findById(req.params.id);
   
       if (result) {
