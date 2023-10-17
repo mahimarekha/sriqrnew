@@ -30,6 +30,7 @@ const ticketBookingSchema = new mongoose.Schema(
         required: false,
         default:false
       },
+      
       profileRegistrationId: {
         type:  mongoose.Schema.Types.ObjectId,
             ref: "ProfileRegistration",

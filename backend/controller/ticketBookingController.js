@@ -283,6 +283,34 @@ const getTicketBookingList=async(req, res)=>{
       res.status(400).send({ message: err });
     }
   };
+  const updateIsTicketScannned = async (req, res) => {
+    try {
+      console.log(req.params.id)
+   
+      if (req.body.tokenId!==process.env.SECRET) {
+        return res.status(403).send({
+          message: 'Invalid request please check secret key.',
+        });
+      }
+      if (!req.params.id) {
+        return res.status(403).send({
+          message: 'Booking Id is required.',
+        });
+      }
+    const result =  await TicketBooking.updateOne({ _id: req.params.id }, { $set: { isTicketScanned: req.body.isTicketScannned?req.body.isTicketScannned:true } });
+     let ticketBooking = await TicketBooking.findById(req.params.id);
+  
+      if (result) {
+        res.send({ message: 'Ticket Scannned Updated Successfully!',
+        bookingDetails:ticketBooking.fee,
+        orderId:ticketBooking.invoice,
+        _id:ticketBooking._id,
+        totalAmount:ticketBooking.totalAmount});
+      }
+    } catch (err) {
+      res.status(400).send({ message: err });
+    }
+  };
   const deleteTicketBooking = (req, res) => {
     TicketBooking.deleteOne({ _id: req.params.id }, (err) => {
       if (err) {
@@ -326,5 +354,6 @@ const getTicketBookingList=async(req, res)=>{
     getAllProfileId,
     getTicketBookingList,
     getQRCodeByStatus,
-    getQRCodeByMobile
+    getQRCodeByMobile,
+    updateIsTicketScannned
   };

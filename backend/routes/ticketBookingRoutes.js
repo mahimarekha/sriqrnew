@@ -7,7 +7,7 @@ const formidable=require('formidable')
 const { isAuth, isAdmin } = require('../config/auth');
 const router = express.Router();
 const {v4:uuidv4}=require('uuid')
-const {getTicketBookingList,getQRCodeByStatus,getQRCodeByMobile,
+const {getTicketBookingList,getQRCodeByStatus,getQRCodeByMobile,updateIsTicketScannned,
     addTicketBooking, addAllTicketBooking, getAllTicketBooking, updateTicketBooking,
     deleteTicketBooking,findTicketBookingList, getTicketBookingById, getAllProfileId
 } = require('../controller/ticketBookingController');
@@ -16,6 +16,7 @@ const PaytmChecksum=require('../controller/PaytmChecksum')
 router.post('/add', addTicketBooking);
 router.post('/profileid',isAuth, getAllProfileId);
 router.put('/:id',isAuth, updateTicketBooking);
+router.put('/qrstatus/:id', updateIsTicketScannned);
 router.post('/all',isAuth, addAllTicketBooking);
 router.post('/find',isAuth, findTicketBookingList);
 

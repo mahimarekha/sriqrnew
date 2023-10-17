@@ -1,5 +1,4 @@
 const express = require('express');
-const { isAuth, isAdmin } = require('../config/auth');
 const router = express.Router();
 const {
     addPark, addAllPark, getAllPark, updatePark,deletePark,findParkList,
