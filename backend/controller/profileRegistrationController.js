@@ -42,10 +42,15 @@ const addProfileRegistration = async (req, res) => {
           _id : profileRegistration._id,
            role:profileRegistration.role,
           profileId: profileRegistration._id, 
-          
+          message: 'Login Successfully!',
         });
       } else {
         res.status(401).send({
+          token:'',
+          email:'',
+          _id : '',
+           role:'',
+          profileId: '', 
           message: 'Invalid Emails or password!',
         });
       }
@@ -106,6 +111,7 @@ const findProfileRegistrationList=async(req, res)=>{
       if (profileRegistration) {
         profileRegistration.location = req.body.location;
         profileRegistration.name = req.body.name;
+        profileRegistration.personName = req.body.personName;
         profileRegistration.email = req.body.email;
         profileRegistration.mobileNumber1 = req.body.mobileNumber1;
         profileRegistration.mobileNumber2 = req.body.mobileNumber2;
