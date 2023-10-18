@@ -301,12 +301,18 @@ const getTicketBookingList=async(req, res)=>{
     const result =  await TicketBooking.updateOne({ _id: req.params.id }, { $set: { isTicketScanned: req.body.isTicketScannned} });
      let ticketBooking = await TicketBooking.findById(req.params.id);
   
-      if (result) {
+      if (result && ticketBooking.paymentStatus === 'TXN_SUCCESS' && !ticketBooking.isTicketScanned) {
         res.send({ message: 'Ticket Scannned Updated Successfully!',
         bookingDetails:ticketBooking.fee,
         orderId:ticketBooking.invoice,
         _id:ticketBooking._id,
         totalAmount:ticketBooking.totalAmount});
+      }else{
+        res.send({ message: 'Invalid Ticket!',
+        bookingDetails:[],
+        orderId:0,
+        _id:'',
+        totalAmount:0});
       }
     } catch (err) {
       res.status(400).send({ message: err });
