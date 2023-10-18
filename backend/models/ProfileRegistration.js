@@ -20,6 +20,10 @@ const profileRegistrationSchema = new mongoose.Schema(
             type: String,
             required: false,
           },
+          name:{
+            type: String,
+            required: false,
+          },
         mobileNumber1: {
             type: String,
             required: true,

@@ -62,6 +62,7 @@ export default function ProfileSRegistration(props) {
     location: '',
     name: '',
     email: '',
+    personName:'',
     mobileNumber1: '',
     mobileNumber2: '',
     password: '',
@@ -71,8 +72,9 @@ export default function ProfileSRegistration(props) {
 };
   const validationSchema = Yup.object().shape({
     location: Yup.string().required('location  is required'),
-    name: Yup.string().required('name is required'),
+    name: Yup.string().required('orgnaization name is required'),
     email: Yup.string().required('email is required'),
+    personName: Yup.string().required('Name is required'),
     mobileNumber1: Yup.string().required()
       .matches(/^[0-9]+$/, "Must be only digits")
       .min(10, 'Must be exactly 10 digits')
@@ -131,8 +133,27 @@ export default function ProfileSRegistration(props) {
         <Grid item xs={12}>
           <Card sx={{ maxWidth: 345 }}>
             <Box   >
+              
               <div style={{ marginLeft: "7%" }}>
                 <form onSubmit={formik.handleSubmit} >
+                <FormControl>
+      <FormLabel id="demo-row-radio-buttons-group-label">Select One</FormLabel>
+      <RadioGroup
+        row
+        aria-labelledby="demo-row-radio-buttons-group-label"
+        name="row-radio-buttons-group"
+      >
+        <FormControlLabel value="female" control={<Radio />} label="Female" />
+        <FormControlLabel value="male" control={<Radio />} label="Male" />
+        <FormControlLabel value="other" control={<Radio />} label="Other" />
+        <FormControlLabel
+          value="disabled"
+          disabled
+          control={<Radio />}
+          label="other"
+        />
+      </RadioGroup>
+    </FormControl>
                   <Grid container spacing={2} columns={12} >
                     <Grid item xs={12}>
                       <PageTitle InputProps={{ style: { color: '#10b680' } }} title="Profile Registration" >aaaaa</PageTitle>
@@ -167,7 +188,21 @@ export default function ProfileSRegistration(props) {
                         helperText={formik.touched.location && formik.errors.location}
                       />
                     </Grid>
-                 
+                    <Grid item xs={12} sm={12} md={6}>
+                      <TextField
+                        InputProps={{ style: { width: 370 } }}
+                        margin="dense"
+                        id="personName"
+                        name="personName"
+                        label="Name"
+                        type="text"
+                        variant="standard"
+                        value={formik.values.personName}
+                        onChange={formik.handleChange}
+                        error={formik.touched.name && Boolean(formik.errors.personName)}
+                        helperText={formik.touched.personName && formik.errors.personName}
+                      />
+                    </Grid>
                     <Grid item xs={12} sm={12} md={6}>
                       <TextField
                         InputProps={{ style: { width: 370 } }}

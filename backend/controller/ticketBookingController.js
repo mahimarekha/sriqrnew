@@ -112,6 +112,7 @@ const getQRCodeByStatus=async(req, res)=>{
     if(ticketBooking.length>0){
       const bookingDetails = ticketBooking[0];
       const orderDetails = {
+        id:bookingDetails._id,
         mobile:bookingDetails.mobile,
         parkName:bookingDetails.parkId.parkName,
         date:new Date(),

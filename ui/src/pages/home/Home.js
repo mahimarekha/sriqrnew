@@ -93,7 +93,6 @@ function Home(props) {
         props.history.push("ticketbooking/" + parkId)
     };
     return (
-
         <>
             <header class="header navbar-area sticky">
                 <div class="container">
@@ -487,6 +486,7 @@ function Home(props) {
                                         </ul>
                                     </div>
                                     <div class="button">
+                                        
                                         <a href="javascript:void(0)" class="btn">Click Here</a>
                                     </div>
                                 </div>
