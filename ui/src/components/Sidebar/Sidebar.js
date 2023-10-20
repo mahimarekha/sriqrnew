@@ -40,29 +40,57 @@ import {
 
 let structure = [
   
+  
+];
+
+let batches = [
+  
   {
     id: 1,
-    label: "Park",
-    link: "/app/park",
+    label: "Batches",
+    link: "/app/coaching",
     icon: <HotTub />,
   },
-  {
-    id: 2,
-    label: "Booking Reports",
-    link: "/app/bookingreport",
-    icon: <HowToVoteSharp />,
-  },
-  {
-    id: 3,
-    label: "Reports",
-    link: "/app/report",
-    icon: <SupervisedUserCircle />,
-  },
+  // {
+  //   id: 2,
+  //   label: "Booking Reports",
+  //   link: "/app/bookingreport",
+  //   icon: <HowToVoteSharp />,
+  // },
+  // {
+  //   id: 3,
+  //   label: "Reports",
+  //   link: "/app/report",
+  //   icon: <SupervisedUserCircle />,
+  // },
 ];
 
 const userDetails = JSON.parse(localStorage.getItem("userDetail"));
-if(userDetails && userDetails.role === 'ADMIN'){
-  structure = structure;
+
+if(userDetails && userDetails.registrationType === 'coaching'){
+  structure = batches;
+}else{
+  structure = [
+  
+    {
+      id: 1,
+      label: "Park",
+      link: "/app/park",
+      icon: <HotTub />,
+    },
+    {
+      id: 2,
+      label: "Booking Reports",
+      link: "/app/bookingreport",
+      icon: <HowToVoteSharp />,
+    },
+    {
+      id: 3,
+      label: "Reports",
+      link: "/app/report",
+      icon: <SupervisedUserCircle />,
+    },
+  ]
 }
 function Sidebar({ location }) {
   var classes = useStyles();

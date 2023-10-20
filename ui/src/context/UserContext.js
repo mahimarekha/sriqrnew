@@ -59,8 +59,13 @@ function loginUser(dispatch, login, password, history, setIsLoading, setError, r
       localStorage.setItem('id_token', res.token)
       setError(null)
       setIsLoading(false)
-      dispatch({ type: 'LOGIN_SUCCESS' })
-      history.push('/app/park') ;
+      dispatch({ type: 'LOGIN_SUCCESS' });
+      if(res && res.registrationType === 'coaching'){
+        history.push('/app/coaching') ;
+      }else{
+        history.push('/app/park') ;
+      }
+     
        window.location.reload(false);
 
 

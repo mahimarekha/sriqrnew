@@ -42,6 +42,7 @@ const addProfileRegistration = async (req, res) => {
           _id : profileRegistration._id,
            role:profileRegistration.role,
           profileId: profileRegistration._id, 
+          registrationType:profileRegistration.registrationType,
           message: 'Login Successfully!',
         });
       } else {
@@ -50,6 +51,7 @@ const addProfileRegistration = async (req, res) => {
           email:'',
           _id : '',
            role:'',
+           registrationType:'',
           profileId: '', 
           message: 'Invalid Emails or password!',
         });

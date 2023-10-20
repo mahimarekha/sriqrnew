@@ -27,7 +27,7 @@ import PaymentIcon from '@material-ui/icons/Payment';
 // import PaymentsIcon from '@material-ui/icons/Payments';
 // import CleaningServicesIcon from '@material-ui/icons/CleaningServices';
 import AcUnitIcon from '@material-ui/icons/AcUnit';
-import home from './images/home.jpg';
+import home from './images/homeimg.jpg';
 import { Link } from "react-router-dom";
 import { useUserDispatch, } from "../../context/UserContext";
 import './styles/bootstrap.min.css';
@@ -203,7 +203,7 @@ function Home(props) {
                         <div class="col-lg-7 col-md-12 col-12">
                             <div class="hero-image wow fadeInRight" data-wow-delay=".4s">
                                 {/* <img src="assets/images/hero/phone.png" alt="#"/> */}
-                                <img src={home} alt="some example image" />
+                                <img src={home} style={{width:"95%"}} alt="some example image" />
                             </div>
                         </div>
                     </div>

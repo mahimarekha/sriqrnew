@@ -11,6 +11,7 @@ const {getTicketBookingList,getQRCodeByStatus,getQRCodeByMobile,updateIsTicketSc
     addTicketBooking, addAllTicketBooking, getAllTicketBooking, updateTicketBooking,
     deleteTicketBooking,findTicketBookingList, getTicketBookingById, getAllProfileId
 } = require('../controller/ticketBookingController');
+
 const PaytmChecksum=require('../controller/PaytmChecksum')
 
 router.post('/add', addTicketBooking);

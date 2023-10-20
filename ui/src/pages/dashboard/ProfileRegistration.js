@@ -59,6 +59,7 @@ export default function ProfileSRegistration(props) {
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [profileRegistration, setProfileRegistration] = useState({
+    registrationType:'park',
     location: '',
     name: '',
     email: '',
@@ -72,6 +73,7 @@ export default function ProfileSRegistration(props) {
 };
   const validationSchema = Yup.object().shape({
     location: Yup.string().required('location  is required'),
+    registrationType:Yup.string().required('Registration Type  is required'),
     name: Yup.string().required('orgnaization name is required'),
     email: Yup.string().required('email is required'),
     personName: Yup.string().required('Name is required'),
@@ -136,27 +138,32 @@ export default function ProfileSRegistration(props) {
               
               <div style={{ marginLeft: "7%" }}>
                 <form onSubmit={formik.handleSubmit} >
-                <FormControl>
-      <FormLabel id="demo-row-radio-buttons-group-label">Select One</FormLabel>
-      <RadioGroup
-        row
-        aria-labelledby="demo-row-radio-buttons-group-label"
-        name="row-radio-buttons-group"
-      >
-        <FormControlLabel value="female" control={<Radio />} label="Female" />
-        <FormControlLabel value="male" control={<Radio />} label="Male" />
-        <FormControlLabel value="other" control={<Radio />} label="Other" />
-        <FormControlLabel
-          value="disabled"
-          disabled
-          control={<Radio />}
-          label="other"
-        />
-      </RadioGroup>
-    </FormControl>
+                
                   <Grid container spacing={2} columns={12} >
                     <Grid item xs={12}>
                       <PageTitle InputProps={{ style: { color: '#10b680' } }} title="Profile Registration" >aaaaa</PageTitle>
+                    </Grid>
+                    <Grid item xs={12} sm={12} md={6}>
+                    <FormControl>
+      <FormLabel id="demo-row-radio-buttons-group-label">Select Registration Type</FormLabel>
+      <RadioGroup
+        row
+        name="registrationType" 
+        margin="dense"
+      id="registrationType" 
+       type="radio"
+      variant="standard"
+      value={formik.values.registrationType}
+      onChange={formik.handleChange}
+      error={formik.touched.registrationType && Boolean(formik.errors.registrationType)}
+      helperText={formik.touched.registrationType && formik.errors.registrationType}
+   
+      >
+        <FormControlLabel name="registrationType" value="park" control={<Radio />} label="Park" />
+        <FormControlLabel name="registrationType" value="coaching" control={<Radio />} label="Coaching" />
+        
+      </RadioGroup>
+    </FormControl>
                     </Grid>
                     <Grid item xs={12} sm={12} md={6}>
                       <TextField

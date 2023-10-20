@@ -10,7 +10,9 @@ import BookingReport from "../../pages/dashboard/BookingReport"
 import Report from "../../pages/dashboard/report"
 import Success from "../../pages/dashboard/Success"
 import ProfileRegistration from "../../pages/dashboard/ProfileRegistration"
+import Coaching from "../../pages/dashboard/Coaching"
 import Park from "../../pages/dashboard/Park"
+
 import {Box, IconButton, Link} from '@material-ui/core'
 import Icon from '@mdi/react'
 import {
@@ -58,6 +60,7 @@ function Layout(props) {
             <Route path="/app/profileregistration" component={ProfileRegistration} />
             <Route path="/app/success" component={Success} />
               <Route path="/app/park" component={Park} />
+              <Route path="/app/coaching" component={Coaching} />
               <Route path="/app/typography" component={Typography} />
               <Route path="/app/notifications" component={Notifications} />
               <Route
