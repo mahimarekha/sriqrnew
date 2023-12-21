@@ -202,14 +202,13 @@ console.log(preparePost)
 }
 const getTicketBookingList=async(req, res)=>{
   let preparePost ={ "paymentStatus" : "TXN_SUCCESS"};
-
   if(!req.body.parkId){
   return  res.status(500).send({
       message: 'Park Id is required',
     });
   }
   if(req.body.parkId){
-    preparePost = {"parkId" : ObjectId(req.body.parkId)};
+    preparePost = {...preparePost,"parkId" : ObjectId(req.body.parkId)};
 
   }
   if (req.body.startDate && req.body.endDate) {
@@ -336,11 +335,12 @@ const getTicketBookingList=async(req, res)=>{
     try {
       let preparePost ={ "paymentStatus" : "TXN_SUCCESS"};
       if(req.body.profileRegistrationId){
-        preparePost = {"profileRegistrationId" : ObjectId(req.body.profileRegistrationId)};
+        preparePost = {...preparePost,"profileRegistrationId" : ObjectId(req.body.profileRegistrationId)};
       }
       if(req.body.parkId){
         preparePost = {...preparePost,...{"parkId" : ObjectId(req.body.parkId)}};
       }
+      
       const ticketBooking = await TicketBooking.find(preparePost).populate("profileRegistrationId").populate("parkId");
       res.send(ticketBooking);
     } catch (err) {
