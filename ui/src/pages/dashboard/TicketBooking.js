@@ -37,7 +37,9 @@ const useStyles = makeStyles({
   pos: {
     marginBottom: 12,
   },
+  
 });
+
 export default function TicketBooking(props) {
   const classes = useStyles();
   const [loading, setLoading] = useState(true);
@@ -389,7 +391,7 @@ post(information)
   alignItems="center"
  
   style={{ minHeight: '100vh' }}>
-          <form onSubmit={formik.handleSubmit} style={{    width: '70%'}} >
+          <form onSubmit={formik.handleSubmit} class="form" style={{    width: '100%',margin:'15px'}} >
             <div >
               <Card >
                 <CardHeader
@@ -475,7 +477,7 @@ style={{ width: '100%' }}
 
                 />
                 <CardContent>
-                  <Grid container spacing={3}>
+                  <Grid container >
                     {fee.map(item => (
                       <Item
                         key={item.id}

@@ -20,7 +20,7 @@ const CoachingService = {
     return requests.get(`/coaching/${id}` );
   },
   getQRcodebyById(body) {
-    return requests.post(`/ticketbooking/getqrcodebystatus`,body );
+    return requests.post(`/coachingbooking/getqrcodebystatus`,body );
   },
 
   qrCode(id) {

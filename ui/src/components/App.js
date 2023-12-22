@@ -16,6 +16,7 @@ import Getqr from "../pages/dashboard/Getqr";
 import { useUserState } from "../context/UserContext";
 // import SchoolRegistration from "../pages/dashboard/SchoolRegistration";
 import TicketBooking from "../pages/dashboard/TicketBooking";
+import CoachingBooking from "../pages/dashboard/CoachingBooking";
 import LoginLayout from "./LoginLayout/LoginLayout";
 
 export default function App() {
@@ -33,6 +34,7 @@ export default function App() {
         /> */}
        
         <PublicRoute path="/ticketbooking/:parkId" component={TicketBooking} />
+        <PublicRoute path="/coachingbooking/:coachingId" component={CoachingBooking} />
         <PublicRoute path="/getqr/:parkId" component={Getqr} />
         {/* <PublicRoute path="/login" component={Login} /> */}
         <PublicRoute path="/home" component={Home} />

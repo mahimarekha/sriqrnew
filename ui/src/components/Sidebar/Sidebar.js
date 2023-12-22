@@ -80,7 +80,7 @@ if(userDetails && userDetails.registrationType === 'coaching'){
     },
     {
       id: 2,
-      label: "Booking Reports",
+      label: "Detailed Report",
       link: "/app/bookingreport",
       icon: <HowToVoteSharp />,
     },

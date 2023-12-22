@@ -191,11 +191,9 @@ console.log(userDetails.role)
             if(res){
                 const base64Data = res.image.replace(/^data:image\/\w+;base64,/, '');
                 const imageBuffer = Buffer.from(base64Data, 'base64');
-
                 // Create a blob URL for the binary buffer
                 const blob = new Blob([imageBuffer]);
                 const blobUrl = URL.createObjectURL(blob);
-            
                 // Create a link element and trigger the download
                 const link = document.createElement('a');
                 link.href = blobUrl;
