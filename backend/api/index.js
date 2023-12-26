@@ -14,7 +14,7 @@ const parkRoutes = require('../routes/parkRoutes');
 const ticketBookingRoutes = require('../routes/ticketBookingRoutes');
 const profileRegistration = require('../routes/profileRegistration');
 const batchRouting = require('../routes/batchRouting');
-
+const coachingRouting = require('../routes/coachingRoutes');
 const { isAuth, isAdmin } = require('../config/auth');
 connectDB();
 const app = express();
@@ -83,7 +83,7 @@ app.use('/api/admin/', adminRoutes);
 app.use('/api/park/', parkRoutes);
 app.use('/api/ticketbooking/', ticketBookingRoutes);
 app.use('/api/coaching/', batchRouting);
-
+app.use('/api/coachingbooking/', coachingRouting);
 app.use('/api/profileregistration/', profileRegistration);
 app.use((err, req, res, next) => {
   if (res.headersSent) return next(err);
