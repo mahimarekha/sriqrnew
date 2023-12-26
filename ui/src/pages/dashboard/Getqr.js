@@ -49,6 +49,7 @@ import TicketBookingService from "./Locality/Service/ticketBookingService";
 export default function Getqr(props) {
     // const classes = useStyles();
     const { bookingId, parkId } = useParams();
+    const { parkName, setParkName } = useParams();
     const [loading, setLoading] = useState(true);
     var [error, setError] = useState(null);
     const [mobile, setMobile] = useState('');
@@ -75,7 +76,7 @@ export default function Getqr(props) {
     }
     const handleRedirect = () => {
 
-        props.history.push("/ticketbooking/" + parkId)
+        props.history.push(`ticketbooking/${parkId}/${parkName}`)
     };
     const getByMobileList = () => {
         const phoneNumberRegex = /^\d{10}$/;

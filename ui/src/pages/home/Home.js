@@ -56,12 +56,13 @@ function Home(props) {
     var userDispatch = useUserDispatch();
     const [parkList, setParkList] = useState([]);
     const [parkId, setParkId] = useState("");
+    const [parkName, setParkName] = useState("");
     var [isLoading, setIsLoading] = useState(false);
     var [error, setError] = useState(null);
     var [activeTabId, setActiveTabId] = useState(0);
     var [loginValue, setLoginValue] = useState("");
     var [passwordValue, setPasswordValue] = useState("");
-    var [roleValue, setRoleValue] = useState("");
+    var [roleValue, setRoleValue] = useState("");   
     const handleOpen = () => {
         props.history.push('/sriqr/login')
     };
@@ -90,7 +91,7 @@ function Home(props) {
   };
     const handleRedirect = () => {
         
-        props.history.push("ticketbooking/" + parkId)
+        props.history.push(`ticketbooking/${parkId}/${parkName}`)
     };
     return (
         <>
@@ -174,8 +175,11 @@ function Home(props) {
                                                 name="parkId"
                                                 label="Select Park"
                                                 // value={formik.values.parkId}
-                                                onChange={(e) => setParkId(e.target.value)}
-
+                                                // onChange={(e) => setParkId(e.target.value)}
+                                                onChange={e => { setParkName(e.target.value.parkName.toLowerCase());
+                                                            
+                                                    setParkId(e.target.value._id)
+                                                   }}
                                             // error={formik.touched.parkId && Boolean(formik.errors.parkId)}
                                             // helperText={formik.touched.parkId && formik.errors.parkId}
                                             >
@@ -183,8 +187,8 @@ function Home(props) {
                                                     <em>None</em>
                                                 </MenuItem>
 
-                                                {parkList.map(({ _id, parkName }) => (
-                                                    <MenuItem key={_id} value={_id}>{parkName}
+                                                {parkList.map((parkDet) => (
+                                                    <MenuItem key={parkDet._id} value={parkDet}>{parkDet.parkName}
 
                                                     </MenuItem>
                                                 ))}
