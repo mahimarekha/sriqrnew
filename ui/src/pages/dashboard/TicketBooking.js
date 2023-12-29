@@ -7,16 +7,11 @@ import { useFormik } from 'formik';
 import { useEffect } from 'react';
 import RemoveIcon from '@material-ui/icons/RemoveCircleOutlineRounded';
 import AddIcon from '@material-ui/icons/AddCircleOutlineRounded';
-import PageTitle from "../../components/PageTitle/PageTitle";
 import { useParams } from "react-router-dom";
 import TicketBookingService from "./Locality/Service/ticketBookingService";
-import Avatar from '@material-ui/core/Avatar';
 import CardHeader from '@material-ui/core/CardHeader';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import { makeStyles } from '@material-ui/core/styles';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
 import ConfirmationNumberIcon from '@material-ui/icons/ConfirmationNumber';
 import PaymentIcon from '@material-ui/icons/Payment';
 import Loader from './Loader';
@@ -37,7 +32,7 @@ const useStyles = makeStyles({
   pos: {
     marginBottom: 12,
   },
-  
+
 });
 
 export default function TicketBooking(props) {
@@ -51,13 +46,7 @@ export default function TicketBooking(props) {
   const [ticketBookingList, setTicketBookingList] = useState([]);
   const [profileRegistrationId, setProfileRegistrationId] = useState('');
   var [error, setError] = useState(null);
-  const [items, setItems] = useState([
-    { id: 1, price: 50, quantity: 0 },
-    // { id: 2, price: 15, quantity: 0 },
-    // { id: 3, price: 20, quantity: 0 },
-  ]);
   const [fee, setFee] = useState([]);
- 
   const handleIncrement = (id) => {
     setFee(prevItems =>
       prevItems.map(item =>
@@ -79,14 +68,12 @@ export default function TicketBooking(props) {
   const getDay = () => {
     const currentDate = new Date();
     const currentDayNumber = currentDate.getDay();
-   
+
     const daysOfWeek = ["sun", "mon", "tue", "wed", "thu", "fri", "sat"];
     const currentDayName = daysOfWeek[currentDayNumber];
     return currentDayName;
-}
-  const handleOpen = () => {
-    props.history.push('/app/studentregistration/add')
-  };
+  }
+
   const handleOpens = () => {
     props.history.push(`/getqr/${parkId}`)
   };
@@ -100,14 +87,16 @@ export default function TicketBooking(props) {
   const Item = ({ name, price, quantity, onIncrement, onDecrement }) => {
     return (
       <>
-       {loading && <Loader />}
+        {loading && <Loader />}
         <Grid item xs={4}>
 
           <div>
-            <h4 style={{ 'overflow': 'hidden',
-                'text-transform': 'uppercase',
-    'text-overflow': 'ellipsis',
-    'white-space': 'break-spaces'}}>{name}</h4>
+            <h4 style={{
+              'overflow': 'hidden',
+              'text-transform': 'uppercase',
+              'text-overflow': 'ellipsis',
+              'white-space': 'break-spaces'
+            }}>{name}</h4>
 
           </div>
           <div>
@@ -152,22 +141,7 @@ export default function TicketBooking(props) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
-  // const getProfileIdList = () => {
-    
-  //   const userDetails = JSON.parse(localStorage.getItem("userDetail"));
-  //   console.log(userDetails.role)
 
-  //   const result = userDetails.role === "admin" ? null : userDetails.profileId;
-  //   console.log(result)
-  //   
-  //   TicketBookingService.getAllProfileId({ profileRegistrationId: result }).then((res) => {
-     
-  //     setTicketBookingList(res);
-
-  //   }).catch((err) => {
-  //     // setError(err.message);
-  //   });
-  // }
   function isDate(val) {
     // Cross realm comptatible
     return Object.prototype.toString.call(val) === '[object Date]'
@@ -186,7 +160,7 @@ export default function TicketBooking(props) {
     const form = document.createElement('form')
     form.setAttribute('method', 'post')
     form.setAttribute('action', action)
-  
+
     Object.keys(params).forEach(key => {
       const input = document.createElement('input')
       input.setAttribute('type', 'hidden')
@@ -194,7 +168,7 @@ export default function TicketBooking(props) {
       input.setAttribute('value', stringifyValue(params[key]))
       form.appendChild(input)
     })
-  
+
     return form
   }
   function post(details) {
@@ -203,31 +177,33 @@ export default function TicketBooking(props) {
     document.body.appendChild(form)
     form.submit()
     form.remove()
+    setLoading(false);
   }
-const payment=(values)=>{
-  TicketBookingService.paymentProcess(values).then((response)=>{
-    var information={
-      action:process.env.REACT_APP_CCAV_URL,
-      params:response
+  const payment = (values) => {
+    TicketBookingService.paymentProcess(values).then((response) => {
+      var information = {
+        action: process.env.REACT_APP_CCAV_URL,
+        params: response
+      }
+
+      post(information);
+
+    })
   }
-  
-post(information)
-  })
-}
   const bookTickets = () => {
 
-    
+
     const getBookedDetails = fee.filter(feeDetails => feeDetails.quantity > 0);
     const totalSum = getBookedDetails.reduce((sum, item) => sum + item.price * item.quantity, 0);
     const day = getDay();
     const phoneNumberRegex = /^\d{10}$/;
 
 
-    if(!mobile){
+    if (!mobile) {
       alert("Please enter mobile number");
       return
     }
-    if(!phoneNumberRegex.test(mobile)){
+    if (!phoneNumberRegex.test(mobile)) {
       alert("Please enter valid mobile number");
       return
     }
@@ -235,7 +211,7 @@ post(information)
       alert("You cant procced to book the ticket. today is holiday ");
       return
     }
-    if(getBookedDetails.length<=0){
+    if (getBookedDetails.length <= 0) {
       alert("You need to select atleast one field");
       return
     }
@@ -244,46 +220,17 @@ post(information)
       fee: getBookedDetails,
       totalAmount: totalSum,
       parkId: parkId,
-      parkName:ticketBooking.parkName,
+      parkName: ticketBooking.parkName,
       mobile: mobile,
       paymentStatus: "pending",
       profileRegistrationId: profileRegistrationId,
     }
-    
+    setLoading(true);
     TicketBookingService.creteTicketBooking(ticketDetails).then((res) => {
-      
+
       setMobile('');
-      payment({amount:totalSum, mobile:mobile, id:res.id})
-      //getByIdList();
-  
+      payment({ amount: totalSum, mobile: mobile, id: res.id })
 
-
-
-      // setProfileRegistrationId();
-      // getTicketBookingList();
-      // resetForm();
-      // handleClose();
-      // getProfileIdList();
-      // alert(" TicketBooking Added Successfully.");
-    
-    //   if(res){
-    //     const base64Data = res.image.replace(/^data:image\/\w+;base64,/, '');
-    //     const imageBuffer = Buffer.from(base64Data, 'base64');
-
-    //     // Create a blob URL for the binary buffer
-    //     const blob = new Blob([imageBuffer]);
-    //     const blobUrl = URL.createObjectURL(blob);
-    
-    //     // Create a link element and trigger the download
-    //     const link = document.createElement('a');
-    //     link.href = blobUrl;
-    //     link.download = mobile+'.png'; // Change the file name and extension
-    //     link.click();
-    
-    //     // Clean up the blob URL
-    //     URL.revokeObjectURL(blobUrl);
-
-    // }
     })
       .catch((err) => {
 
@@ -300,57 +247,57 @@ post(information)
     ParkService.getParkById(parkId).then((res) => {
       const park = [];
       if (res) {
-     
+
         setLoading(false);
         setProfileRegistrationId(res.profileRegistrationId);
-        
-          Object.keys(res).map(key => {
-            if (key === "seniorCitizen" && res[key]) {
-              park.push(
-                { id: getRandomInt(1000, 10000), price: Number(res['seniorCitizenFee']), quantity: 0, name: 'Senior Citizen' },
-              )
-            } else if (key === "women" && res[key]) {
-              park.push(
-                { id: getRandomInt(1000, 10000), price: Number(res['womenFee']), quantity: 0, name: 'Women' },
-              )
-            } else if (key === "physicallyChallenged" && res[key]) {
-              park.push(
-                { id: getRandomInt(1000, 10000), price: Number(res['physicallyChallengedFee']), quantity: 0, name: 'Physically Challenged' },
-              )
-            } else if (key === "camera" && res[key]) {
-              park.push(
-                { id: getRandomInt(1000, 10000), price: Number(res['cameraFee']), quantity: 0, name: 'Camera' },
-              )
-            }
-            else if (key === "photography" && res[key]) {
-              park.push(
-                { id: getRandomInt(1000, 10000), price: Number(res['photographyFee']), quantity: 0, name: 'Photography' },
-              )
-            } else if (key === "shooting" && res[key]) {
-              park.push(
-                { id: getRandomInt(1000, 10000), price: Number(res['shootingFee']), quantity: 0, name: 'shooting' },
-              )
-            }
-            else if (key === "walker" && res[key]) {
-              park.push(
-                { id: getRandomInt(1000, 10000), price: Number(res['walkerFee']), quantity: 0, name: 'walker' },
-              )
-            } else if (key === "adult" && res[key]) {
-              park.push(
-                { id: getRandomInt(1000, 10000), price: Number(res['adultFee']), quantity: 0, name: 'adult' },
-              )
-            } else if (key === "child" && res[key]) {
-              park.push(
-                { id: getRandomInt(1000, 10000), price: Number(res['childFee']), quantity: 0, name: 'child' },
-              )
-            }
 
+        Object.keys(res).map(key => {
+          if (key === "seniorCitizen" && res[key]) {
+            park.push(
+              { id: getRandomInt(1000, 10000), price: Number(res['seniorCitizenFee']), quantity: 0, name: 'Senior Citizen' },
+            )
+          } else if (key === "women" && res[key]) {
+            park.push(
+              { id: getRandomInt(1000, 10000), price: Number(res['womenFee']), quantity: 0, name: 'Women' },
+            )
+          } else if (key === "physicallyChallenged" && res[key]) {
+            park.push(
+              { id: getRandomInt(1000, 10000), price: Number(res['physicallyChallengedFee']), quantity: 0, name: 'Physically Challenged' },
+            )
+          } else if (key === "camera" && res[key]) {
+            park.push(
+              { id: getRandomInt(1000, 10000), price: Number(res['cameraFee']), quantity: 0, name: 'Camera' },
+            )
+          }
+          else if (key === "photography" && res[key]) {
+            park.push(
+              { id: getRandomInt(1000, 10000), price: Number(res['photographyFee']), quantity: 0, name: 'Photography' },
+            )
+          } else if (key === "shooting" && res[key]) {
+            park.push(
+              { id: getRandomInt(1000, 10000), price: Number(res['shootingFee']), quantity: 0, name: 'shooting' },
+            )
+          }
+          else if (key === "walker" && res[key]) {
+            park.push(
+              { id: getRandomInt(1000, 10000), price: Number(res['walkerFee']), quantity: 0, name: 'walker' },
+            )
+          } else if (key === "adult" && res[key]) {
+            park.push(
+              { id: getRandomInt(1000, 10000), price: Number(res['adultFee']), quantity: 0, name: 'adult' },
+            )
+          } else if (key === "child" && res[key]) {
+            park.push(
+              { id: getRandomInt(1000, 10000), price: Number(res['childFee']), quantity: 0, name: 'child' },
+            )
           }
 
+        }
 
 
-          )
-          
+
+        )
+
         setFee(park);
         setTicketBooking(res);
 
@@ -388,12 +335,12 @@ post(information)
 
       <Box   >
         <Grid container
-  spacing={0}
-  direction="column"
-  alignItems="center"
- 
-  style={{ minHeight: '100vh' }}>
-          <form onSubmit={formik.handleSubmit} class="form" style={{    width: '100%',margin:'15px'}} >
+          spacing={0}
+          direction="column"
+          alignItems="center"
+
+          style={{ minHeight: '100vh' }}>
+          <form onSubmit={formik.handleSubmit} class="form" style={{ width: '100%', margin: '15px' }} >
             <div >
               <Card >
                 <CardHeader
@@ -421,7 +368,7 @@ post(information)
                     <PageTitle title="Ticket Booking" />
                   </Grid> */}
                 <CardContent>
-                 {(ticketBooking?.isCloakRoom || ticketBooking?.isHolidays || ticketBooking?.holidayDays ) ? <Grid item xs={12}>
+                  {(ticketBooking?.isCloakRoom || ticketBooking?.isHolidays || ticketBooking?.holidayDays) ? <Grid item xs={12}>
                     <h4> Note: <span style={{
                       'color': "#0a88e4",
                       'font-size': "13px"
@@ -429,11 +376,11 @@ post(information)
                       {ticketBooking?.isCloakRoom ? <span>1.Cloak room Avilable</span> : ''},{ticketBooking?.isHolidays ? <span>2.Holidays on {ticketBooking?.holidayDays}</span> : ''}
                     </span></h4>
 
-                  </Grid> : '' } 
+                  </Grid> : ''}
 
                   <Grid item xs={12} >
-                    <TextField 
-                      autoFocus
+                    <TextField
+
                       margin="dense"
                       id="parkName"
                       name="parkName"
@@ -445,8 +392,8 @@ post(information)
                     />
                   </Grid>
                   <Grid item xs={12}>
-                    <TextField 
-style={{ width: '100%' }}
+                    <TextField autoFocus
+                      style={{ width: '100%' }}
                       margin="dense"
                       id="mobile"
                       name="mobile"
@@ -532,10 +479,10 @@ style={{ width: '100%' }}
             <div style={{ marginTop: "2%" }}>
               <Grid item xs={12}>
                 <div style={{ textAlign: 'left' }}>
-                {/* <a href="javascript:void(0)" class="btn" ><i class="lni lni-apple"></i> Book More Tickets</a> */}
-                {/* <PublicRoute path="/ticketbooking/:parkId" component={TicketBooking} /> */}
+                  {/* <a href="javascript:void(0)" class="btn" ><i class="lni lni-apple"></i> Book More Tickets</a> */}
+                  {/* <PublicRoute path="/ticketbooking/:parkId" component={TicketBooking} /> */}
 
-                <a style={{ fontWeight: 'bold',  color: '#ff6b81',  fontSize:'large' }}href="javascript:void(0)" onClick={handleOpens} class="page-scroll active"> Get QR</a>
+                  <a style={{ fontWeight: 'bold', color: '#ff6b81', fontSize: 'large' }} href="javascript:void(0)" onClick={handleOpens} class="page-scroll active"> Get QR</a>
                 </div>
               </Grid>
             </div>
@@ -550,10 +497,6 @@ style={{ width: '100%' }}
           </form>
         </Grid>
       </Box>
-
-
-
-
 
     </>
   );
