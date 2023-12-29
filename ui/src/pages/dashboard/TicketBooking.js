@@ -199,6 +199,7 @@ export default function TicketBooking(props) {
   }
   function post(details) {
     const form = buildForm(details)
+    console.log(form);
     document.body.appendChild(form)
     form.submit()
     form.remove()
@@ -206,9 +207,10 @@ export default function TicketBooking(props) {
 const payment=(values)=>{
   TicketBookingService.paymentProcess(values).then((response)=>{
     var information={
-      action:"https://securegw-stage.paytm.in/order/process",
+      action:"https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction",
       params:response
   }
+  
 post(information)
   })
 }
@@ -247,7 +249,7 @@ post(information)
       paymentStatus: "pending",
       profileRegistrationId: profileRegistrationId,
     }
-    debugger
+    
     TicketBookingService.creteTicketBooking(ticketDetails).then((res) => {
       
       setMobile('');

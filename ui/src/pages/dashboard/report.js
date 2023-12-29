@@ -100,11 +100,11 @@ export default function Report() {
                 if (!mergedFeeDetails[name + ' amount']) {
                     // If the name doesn't exist in the merged object, create it
                     // mergedFeeDetails[name] = price;
-                    mergedFeeDetails[name + ' amount'] = price;
+                    mergedFeeDetails[name + ' amount'] = qty*price;
                     mergedFeeDetails[name + ' Count'] = qty;
                 } else {
                     // If the name already exists, add the price to the existing sum
-                    mergedFeeDetails[name + ' amount'] += price;
+                    mergedFeeDetails[name + ' amount'] += qty*price;
                     mergedFeeDetails[name + ' Count'] += qty;
                     //  mergedFeeDetails[name] += price;
                 }
@@ -123,10 +123,10 @@ export default function Report() {
                 if (!mergedFeeDetails[name + ' amount']) {
                     // If the name doesn't exist in the merged object, create it
                     // mergedFeeDetails[name] = price;
-                    mergedFeeDetails[name + ' amount'] = price;
+                    mergedFeeDetails[name + ' amount'] = qty*price;
                 } else {
                     // If the name already exists, add the price to the existing sum
-                    mergedFeeDetails[name + ' amount'] += price;
+                    mergedFeeDetails[name + ' amount'] += qty*price;
                     //  mergedFeeDetails[name] += price;
                 }
             });
@@ -150,6 +150,7 @@ export default function Report() {
                         'Total Amount': `₹ ${totalSum(result.documents)}`,
                     }
                 });
+                debugger
                 const headerDetails = Object.keys(result[0]).map(key => key);
                 settableHeaders(headerDetails);
                 // excelExport(res);

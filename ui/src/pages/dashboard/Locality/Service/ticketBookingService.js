@@ -31,7 +31,7 @@ const TicketBookingService = {
     return requests.post(`/ticketbooking/report`,body);
   },
   paymentProcess(body){
-    return requests.post(`/ticketbooking/payment`,body);
+    return requests.post(`/ticketbooking/ccav/payment`,body);
   },
   getQRcodeByMobile(body) {
     return requests.post(`/ticketbooking/getqrcodebymobile`,body );

@@ -4,14 +4,18 @@ const https=require('https')
 const TicketBooking = require('../models/TicketBooking');
 const TransactionDetailes=require('../models/TransactionDetailes');
 const formidable=require('formidable')
+const until = require('../config/auth');
 const { isAuth, isAdmin } = require('../config/auth');
+const ccav = require('../utils/ccavutil');
 const router = express.Router();
 const {v4:uuidv4}=require('uuid')
 const {getTicketBookingList,getQRCodeByStatus,getQRCodeByMobile,updateIsTicketScannned,
     addTicketBooking, addAllTicketBooking, getAllTicketBooking, updateTicketBooking,
     deleteTicketBooking,findTicketBookingList, getTicketBookingById, getAllProfileId
 } = require('../controller/ticketBookingController');
-
+// import queryString from 'query-string';
+const queryString= require('querystring');
+const crypto = require('crypto');
 const PaytmChecksum=require('../controller/PaytmChecksum')
 
 router.post('/add', addTicketBooking);
@@ -58,7 +62,7 @@ router.post('/callback', (req, res) => {
         PaytmChecksum.generateSignature(paytmParams, process.env.PAYTM_MERCHANT_KEY).then(function (checksum) {
             paytmParams["CHECKSUMHASH"] = checksum;
             var post_data = JSON.stringify(paytmParams);
-            console.log(post_data)
+            
             var options = {
                 /* for Staging */
                 hostname: 'securegw-stage.paytm.in',
@@ -75,13 +79,12 @@ router.post('/callback', (req, res) => {
             var response = "";
             var post_req = https.request(options, function (post_res) {
                 post_res.on('data', function (chunk) {
-                    console.log("dddd")
                     response += chunk;
                 });
 
                 post_res.on('end', async function () {
                     let result = JSON.parse(response)
-                    console.log(result)
+                  
                   const orderdetails =  await TicketBooking.findById(result.ORDERID);
                     if (result.STATUS === 'TXN_SUCCESS') {
                         console.log(result.STATUS)
@@ -174,6 +177,81 @@ router.post('/payment', (req, res) => {
     }).catch(function (error) {
         console.log(error);
     });
+
+})
+
+router.post('/ccav/payment', (request, res) => {
+    const params = request.body;
+	workingKey = process.env.CCEV_WORKINGKEY,	//Put in the 32-Bit key shared by CCAvenues.
+	accessCode = process.env.CCEV_ACCESSKEY,			//Put in the Access Code shared by CCAvenues.
+	encRequest = '',
+	formbody = '';
+    params.amount = params.amount;
+    params.order_id= params.id,
+    params.redirect_url= process.env.CALLBACK_URL;
+    params.billing_address= "Hyderabad";
+    params.billing_city= "Hyderabad";
+    params.billing_country= "India";
+    params.billing_email= "testing@domain.com";
+    params.billing_name= params.mobile;
+    params.billing_state= "TS";
+    params.billing_tel= params.mobile;
+    params.billing_zip= "400054";
+    params.cancel_url= process.env.CALLBACK_URL;
+    params.currency= "INR";
+    params.language= "EN";
+    params.merchant_id= "3133515";
+    var md5 = crypto.createHash('md5').update(workingKey).digest();
+    var keyBase64 = Buffer.from(md5).toString('base64');
+    var ivBase64 = Buffer.from([0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d,0x0e, 0x0f]).toString('base64');
+    const  data = queryString.stringify(params);
+    encRequest = ccav.encrypt(data, keyBase64, ivBase64); 
+	res.send({encRequest:encRequest,access_code:accessCode});
+})
+
+router.post('/ccav/callback',async (request, response) => {
+  const result = request.body;
+    var ccavEncResponse='',
+	ccavResponse='',	
+	workingKey = process.env.CCEV_WORKINGKEY,	//Put in the 32-Bit key shared by CCAvenues.
+	ccavPOST = '';
+    //Generate Md5 hash for the key and then convert in base64 string
+    var md5 = crypto.createHash('md5').update(workingKey).digest();
+    var keyBase64 = Buffer.from(md5).toString('base64');
+
+    //Initializing Vector and then convert in base64 string
+    var ivBase64 = Buffer.from([0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x0a, 0x0b, 0x0c, 0x0d,0x0e, 0x0f]).toString('base64');
+    var encryption = result.encResp;
+    ccavResponse = ccav.decrypt(encryption, keyBase64, ivBase64);
+    const resultDetails = ccav.queryStringToJson(ccavResponse);
+      
+    const orderdetails =  await TicketBooking.findById(resultDetails.order_id);
+    if (resultDetails.order_status && resultDetails.order_status === 'Success') {
+        try {
+            const bookingDetails =  await TicketBooking.updateOne({ _id: resultDetails.order_id }, { $set: { paymentStatus: 'TXN_SUCCESS' } })
+            const newTransactionDetailes = new TransactionDetailes(resultDetails);
+            await newTransactionDetailes.save();
+            
+            response.redirect(`${process.env.QR_CODE_URL}/#/paymentstatus/${resultDetails.order_id}/${orderdetails.parkId}`)
+
+        } catch (error) {
+            console.log(error);
+        }
+       
+    } else {
+        try {
+          const bookingDetails =  await TicketBooking.updateOne({ _id: resultDetails.order_id }, { $set: { paymentStatus: resultDetails.order_status } })
+            const newTransactionDetailes = new TransactionDetailes(resultDetails);
+            await newTransactionDetailes.save();
+            
+            response.redirect(`${process.env.QR_CODE_URL}/#/paymentstatus/${resultDetails.order_id}/${orderdetails.parkId}`)
+        } catch (error) {
+            console.log(error);
+        }
+       
+    }
+
+
 
 })
 

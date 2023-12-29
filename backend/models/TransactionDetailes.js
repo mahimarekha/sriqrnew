@@ -3,63 +3,52 @@ const bcrypt = require('bcryptjs');
 const TransactionDetailesSchema = new mongoose.Schema(
   {
   
-     TXNID: {
+    tracking_id: {
         type: String,
-        required: true,
+        required: false,
       },
-    BANKTXNID: {
+      bank_ref_no: {
         type: String,
-        required: true,
+        required: false,
       },
-    ORDERID: {
+      order_id: {
         
         type:  mongoose.Schema.Types.ObjectId,
         ref: "TicketBooking",
-        required: true,
-},
-    TXNAMOUNT: {
+        required: false,
+       },
+       amount: {
         type: String,
-        required: true,
+        required: false,
       },
-    STATUS: {
+      order_status: {
         type: String,
-        required: true,
+        required: false,
       },
-    TXNTYPE: {
+      payment_mode: {
         type: String,
-        required: true,
+        required: false,
       },
-    GATEWAYNAME: {
+      card_name: {
         type: String,
-        required: true,
+        required: false,
       },
-    RESPCODE: {
+      status_code: {
         type: String,
-        required: true,
+        required: false,
       },
-    RESPMSG: {
+      status_message: {
         type: String,
-        required: true,
+        required: false,
       }, 
-         BANKNAME:  {
-            type: String,
-            required: true,
-          }, 
-      MID:  {
+     billing_tel:  {
         type: String,
-        required: true,
+        required: false,
       }, 
-      PAYMENTMODE:  {
+      
+      trans_date:  {
         type: String,
-        required: true,
-      }, 
-      REFUNDAMT: {
-        type: String,
-        required: true,
-      }, 
-      TXNDATE:  {
-        type: String,
-        required: true,
+        required: false,
       }, 
   },
   {
