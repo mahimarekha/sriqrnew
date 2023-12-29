@@ -207,7 +207,7 @@ export default function TicketBooking(props) {
 const payment=(values)=>{
   TicketBookingService.paymentProcess(values).then((response)=>{
     var information={
-      action:"https://test.ccavenue.com/transaction/transaction.do?command=initiateTransaction",
+      action:process.env.REACT_APP_CCAV_URL,
       params:response
   }
   
