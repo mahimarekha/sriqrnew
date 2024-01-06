@@ -115,9 +115,11 @@ const getQRCodeByStatus=async(req, res)=>{
         id:bookingDetails._id,
         mobile:bookingDetails.mobile,
         parkName:bookingDetails.parkId.parkName,
-        date:new Date(),
+        location:bookingDetails.parkId.location,
+        date:dayjs(bookingDetails.createdAt).format('YYYY-MM-DD  h:mm A'),
       ...getDetails(bookingDetails.fee)
       };
+      console.log(orderDetails)
             QRCode.toDataURL(`${JSON.stringify(orderDetails)}`, function (err, url) {
              
                res.send( { status:true, image:url,message: 'Your transation successfully completed , your booking id is'+bookingDetails.invoice+'.', id:bookingDetails._id});
@@ -172,8 +174,10 @@ console.log(preparePost)
           mobile:key.mobile,
           parkName:key.parkId.parkName,
           date:new Date(),
+          id:key._id,
         ...getDetails(key.fee)
         };
+        console.log(key._id)
     const qrCode =   await  QRCode.toDataURL(`${JSON.stringify(orderDetails)}`);
               // QRCode.toDataURL(`${JSON.stringify(orderDetails)}`, function (err, url) {
                
