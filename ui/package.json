@@ -37,7 +37,6 @@
     "react-async-hook": "^4.0.0",
     "react-calendar": "^4.0.0",
     "react-dom": "^16.14.0",
-    "react-export-excel": "^0.5.3",
     "react-google-autocomplete": "^2.7.0",
     "react-google-maps": "^9.4.5",
     "react-hook-form": "^7.35.0",
