@@ -299,7 +299,7 @@ const getTicketBookingList=async(req, res)=>{
       let ticketBooking = await TicketBooking.findById(req.params.id).populate("parkId");;
   
       const result =  await TicketBooking.updateOne({ _id: req.params.id }, { $set: { isTicketScanned: req.body.isTicketScannned} });
-  
+
       if (result && ticketBooking.paymentStatus === 'TXN_SUCCESS' && !ticketBooking.isTicketScanned) {
         res.send({ message: 'Ticket Scannned Updated Successfully!',
         bookingDetails:ticketBooking.fee,
@@ -307,8 +307,8 @@ const getTicketBookingList=async(req, res)=>{
         _id:ticketBooking._id,
         date:ticketBooking.createdAt ? dayjs(ticketBooking.createdAt).format('YYYY-MM-DD  h:mm A'):'',
         paymentStatus:ticketBooking.paymentStatus,
-        parkName:ticketBooking.parkId?ticketBooking.parkName:'',
-        parkLocation:ticketBooking.parkId?ticketBooking.location:'',
+        parkName:ticketBooking.parkId?ticketBooking.parkId.parkName:'',
+        parkLocation:ticketBooking.parkId?ticketBooking.parkId.location:'',
         totalAmount:ticketBooking.totalAmount});
       }else{
         res.send({ message: 'Invalid Ticket!',
