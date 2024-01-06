@@ -180,7 +180,7 @@ console.log(preparePost)
               //    res.send( { status:true, image:url,message: 'Your transation successfully completed , your booking id is'+bookingDetails.invoice+'.', id:bookingDetails._id});
           
               // })
-              finalData.push({ status:true, image:qrCode,message: 'Your transation successfully completed , your booking id is'+key.invoice+'.', id:key._id})
+              finalData.push({ status:true, image:qrCode,message: 'Your transation successfully completed , your booking id is '+key.invoice+'.', id:key._id})
              // console.log(qrCode)
        
       }
@@ -285,7 +285,6 @@ const getTicketBookingList=async(req, res)=>{
   };
   const updateIsTicketScannned = async (req, res) => {
     try {
-      console.log(req.params.id)
    
       if (req.body.tokenId!==process.env.SECRET) {
         return res.status(403).send({
@@ -297,15 +296,19 @@ const getTicketBookingList=async(req, res)=>{
           message: 'Booking Id is required.',
         });
       }
-      let ticketBooking = await TicketBooking.findById(req.params.id);
+      let ticketBooking = await TicketBooking.findById(req.params.id).populate("parkId");;
   
       const result =  await TicketBooking.updateOne({ _id: req.params.id }, { $set: { isTicketScanned: req.body.isTicketScannned} });
-    
+
       if (result && ticketBooking.paymentStatus === 'TXN_SUCCESS' && !ticketBooking.isTicketScanned) {
         res.send({ message: 'Ticket Scannned Updated Successfully!',
         bookingDetails:ticketBooking.fee,
         orderId:ticketBooking.invoice,
         _id:ticketBooking._id,
+        date:ticketBooking.createdAt ? dayjs(ticketBooking.createdAt).format('YYYY-MM-DD  h:mm A'):'',
+        paymentStatus:ticketBooking.paymentStatus,
+        parkName:ticketBooking.parkId?ticketBooking.parkId.parkName:'',
+        parkLocation:ticketBooking.parkId?ticketBooking.parkId.location:'',
         totalAmount:ticketBooking.totalAmount});
       }else{
         res.send({ message: 'Invalid Ticket!',
