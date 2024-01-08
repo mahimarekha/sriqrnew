@@ -243,7 +243,9 @@ function Home(props) {
 
                                 <i class="lni lni-lock"><CachedIcon /></i>
                                 <h3>How To Works</h3>
-                                <p>Unique QR code for every client’s business, on scanning QR code by client/Customer related page of business opens, client enters details, same is processed and calculates amount to be paid. Client proceeds for payment process, once payment received QR code generated with details of services availed by client.</p>
+                                <p>
+                                Each client's business is assigned a unique QR code. When the customer/visitor scans the QR code, it opens a page related to client’s business. The customer/visitor then enters their details of services required, which are processed to calculate the amount to be paid. Once the client proceeds with the payment process and the payment is received, a QR code is generated containing the details of the services availed by the client. QR code generated is scanned by authorised person of client through a mobile app, which displays the services availed, business name, date and time.    
+                                No cash handling by persons, money debited directly into business account of entity                                </p>
                             </div>
 
                         </div>
@@ -251,9 +253,11 @@ function Home(props) {
 
                             <div class="single-feature wow fadeInUp" data-wow-delay=".6s">
                                 <i class="lni lni-reload"><PhonelinkLockIcon /></i>
-                                <h3>Authorization</h3>
-                                <p>QR code received by client is scanned by authorised person of business entity to know services availed by client same is delivered. Once scanned QR code it becomes invalid.
-                                    Simple process, any business can register online, Paytm team will reach and process merchant registration.
+                                <h3>Validation of QR codes reacheceived</h3>
+                                <p>
+                                Android mobile app is provided to scan QR code received by customer/Visitor on successful payment.
+QR code received by client is scanned by authorised person of business entity to know services availed by client same is delivered. Once scanned QR code it becomes invalid. Simple process, any business can register online, Paytm team will reach and process merchant registration
+
                                 </p>
                             </div>
 
@@ -283,8 +287,8 @@ function Home(props) {
                             <div class="single-feature wow fadeInUp" data-wow-delay=".6s">
                                 <i class="lni lni-layers"><PaymentIcon /></i>
                                 <h3>Payments </h3>
-                                <p>All payments processed are transferred by Paytm, into business entity’s bank account next day.
-                                    Paytm business app updates each transaction as it receives payment. Authorised Person can view each transaction, for any technical or internet issue, client not received QR code, it can be confirmed with this app.
+                                <p>
+                                All payments processed are transferred by Paytm, into business entity’s bank account next day. Paytm business app updates each transaction as it receives payment. Authorised Person can view each transaction, in case client not received QR code, it can be confirmed with this app for instant process of services availed by customer.
                                 </p>
                             </div>
 
@@ -299,13 +303,16 @@ function Home(props) {
                         <div class="col-lg-10 offset-lg-1 col-md-12 col-12">
                             <div class="title">
                                 <h2>Trusted by users from over India</h2>
-                                <p>Simple process, any business can register online, Paytm team will reach and process merchant registration.</p>
+                                {/* <p>Simple process, any business can register online, Paytm team will reach and process merchant registration.</p> */}
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-8 offset-lg-2 col-md-12 col-12">
-                            <div class="row">
+                            <h5 style={{color:"white"}}>
+                        Processed at Lumbini, NTR gardens, Sanjeevaiah, lakefront, Gandipet, Shiparamam.  25000 tickets processed daily for Hassle free entry.
+                        </h5 >
+                            {/* <div class="row">
                                 <div class="col-lg-4 col-md-4 col-12">
                                     <div class="single-achievement wow fadeInUp" data-wow-delay=".2s">
                                         <h3 class="counter"><span id="secondo1" class="countup" cup-end="100">100</span>%</h3>
@@ -324,7 +331,7 @@ function Home(props) {
                                         <p>secure</p>
                                     </div>
                                 </div>
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                 </div>
@@ -343,9 +350,9 @@ function Home(props) {
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-lg-3 col-md-6 col-12">
+                        <div class="col-lg-4 col-md-6 col-12">
 
-                            <div class="single-table wow fadeInUp" data-wow-delay=".2s">
+                            <div class="single-table wow fadeInUp" data-wow-delay=".6s">
 
                                 <div class="table-head">
                                     <h4 class="title">Park </h4>
@@ -356,11 +363,10 @@ function Home(props) {
                                     <div class="table-content">
                                         <h4 class="middle-title">What's Included</h4>
                                         <ul class="table-list">
-                                            <li><i class="lni lni-checkmark-circle"></i> Cras justo odio.</li>
-                                            <li><i class="lni lni-checkmark-circle"></i> Dapibus ac facilisis in.</li>
-                                            <li><i class="lni lni-checkmark-circle"></i> Morbi leo risus.</li>
-                                            <li><i class="lni lni-checkmark-circle"></i> Potenti felis, in cras ligula.</li>
-                                        </ul>
+                                        <li><i class="lni lni-checkmark-circle"></i> No Que</li>
+                                            <li><i class="lni lni-checkmark-circle"></i>Parks</li>
+                                            <li><i class="lni lni-checkmark-circle"></i> Easy Ticket Booking</li>
+                                                                                   </ul>
                                     </div>
                                     <div class="button">
                                         <a href="javascript:void(0)" class="btn">Click Here</a>
@@ -370,8 +376,8 @@ function Home(props) {
 
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <div class="single-table wow fadeInUp" data-wow-delay=".4s">
+                        <div class="col-lg-4 col-md-6 col-12">
+                            <div class="single-table wow fadeInUp" data-wow-delay=".6s">
                                 <div class="table-head">
                                     <h4 class="title">Parking </h4>
                                     {/* <p>All the basics for starting a new business</p> */}
@@ -381,10 +387,9 @@ function Home(props) {
                                     <div class="table-content">
                                         <h4 class="middle-title">What's Included</h4>
                                         <ul class="table-list">
-                                            <li><i class="lni lni-checkmark-circle"></i> Cras justo odio.</li>
-                                            <li><i class="lni lni-checkmark-circle"></i> Dapibus ac facilisis in.</li>
-                                            <li><i class="lni lni-checkmark-circle"></i> Morbi leo risus.</li>
-                                            <li><i class="lni lni-checkmark-circle"></i> Potenti felis, in cras ligula.</li>
+                                            <li><i class="lni lni-checkmark-circle"></i> No Que</li>
+                                            <li><i class="lni lni-checkmark-circle"></i> All types of vehicle parking</li>
+                                            <li><i class="lni lni-checkmark-circle"></i> Easy  Booking</li>
                                         </ul>
                                     </div>
                                     <div class="button">
@@ -395,7 +400,7 @@ function Home(props) {
 
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-12">
+                        <div class="col-lg-4 col-md-6 col-12">
                             <div class="single-table wow fadeInUp" data-wow-delay=".6s">
                                 <div class="table-head">
                                     <h4 class="title">Cloak room</h4>
@@ -406,10 +411,9 @@ function Home(props) {
                                     <div class="table-content">
                                         <h4 class="middle-title">What's Included</h4>
                                         <ul class="table-list">
-                                            <li><i class="lni lni-checkmark-circle"></i> Cras justo odio.</li>
-                                            <li><i class="lni lni-checkmark-circle"></i> Dapibus ac facilisis in.</li>
-                                            <li><i class="lni lni-checkmark-circle"></i> Morbi leo risus.</li>
-                                            <li><i class="lni lni-checkmark-circle"></i> Potenti felis, in cras ligula.</li>
+                                            <li><i class="lni lni-checkmark-circle"></i> No Que</li>
+                                            <li><i class="lni lni-checkmark-circle"></i> Safty  clock rooms</li>
+                                            <li><i class="lni lni-checkmark-circle"></i> Easy  Booking</li>
                                         </ul>
                                     </div>
                                     <div class="button">
@@ -419,15 +423,15 @@ function Home(props) {
 
                             </div>
                         </div>
-                        <div class="col-lg-3 col-md-6 col-12">
-                            <div class="single-table wow fadeInUp" data-wow-delay=".8s">
-                                <div class="table-head">
-                                    <h4 class="title">Museum</h4>
+                        <div class="col-lg-4 col-md-6 col-12">
+                            {/* <div class="single-table wow fadeInUp" data-wow-delay=".8s">
+                                <div class="table-head"> */}
+                                    {/* <h4 class="title">Museum</h4> */}
                                     {/* <p>All the basics for starting a new business</p> */}
                                     {/* <div class="price">
                                 <h2 class="amount">$48<span class="duration">/mo</span></h2>
                             </div> */}
-                                    <div class="table-content">
+                                    {/* <div class="table-content">
                                         <h4 class="middle-title">What's Included</h4>
                                         <ul class="table-list">
                                             <li><i class="lni lni-checkmark-circle"></i> Cras justo odio.</li>
@@ -435,13 +439,13 @@ function Home(props) {
                                             <li><i class="lni lni-checkmark-circle"></i> Morbi leo risus.</li>
                                             <li><i class="lni lni-checkmark-circle"></i> Potenti felis, in cras ligula.</li>
                                         </ul>
-                                    </div>
-                                    <div class="button">
+                                    </div> */}
+                                    {/* <div class="button">
                                         <a href="javascript:void(0)" class="btn">Click Here</a>
-                                    </div>
-                                </div>
+                                    </div> */}
+                                {/* </div>
 
-                            </div>
+                            </div> */}
                         </div>
                     </div>
                     <div class="row">
@@ -458,10 +462,9 @@ function Home(props) {
                                     <div class="table-content">
                                         <h4 class="middle-title">What's Included</h4>
                                         <ul class="table-list">
-                                            <li><i class="lni lni-checkmark-circle"></i> Cras justo odio.</li>
-                                            <li><i class="lni lni-checkmark-circle"></i> Dapibus ac facilisis in.</li>
-                                            <li><i class="lni lni-checkmark-circle"></i> Morbi leo risus.</li>
-                                            <li><i class="lni lni-checkmark-circle"></i> Potenti felis, in cras ligula.</li>
+                                            <li><i class="lni lni-checkmark-circle"></i> No Que</li>
+                                            <li><i class="lni lni-checkmark-circle"></i> Specific Slots</li>
+                                            <li><i class="lni lni-checkmark-circle"></i> Easy  Booking </li>
                                         </ul>
                                     </div>
                                     <div class="button">
@@ -483,10 +486,9 @@ function Home(props) {
                                     <div class="table-content">
                                         <h4 class="middle-title">What's Included</h4>
                                         <ul class="table-list">
-                                            <li><i class="lni lni-checkmark-circle"></i> Cras justo odio.</li>
-                                            <li><i class="lni lni-checkmark-circle"></i> Dapibus ac facilisis in.</li>
-                                            <li><i class="lni lni-checkmark-circle"></i> Morbi leo risus.</li>
-                                            <li><i class="lni lni-checkmark-circle"></i> Potenti felis, in cras ligula.</li>
+                                            <li><i class="lni lni-checkmark-circle"></i> No Que</li>
+                                            <li><i class="lni lni-checkmark-circle"></i> Specific Slots</li>
+                                            <li><i class="lni lni-checkmark-circle"></i> Easy  Booking</li>
                                         </ul>
                                     </div>
                                     <div class="button">
@@ -509,10 +511,9 @@ function Home(props) {
                                     <div class="table-content">
                                         <h4 class="middle-title">What's Included</h4>
                                         <ul class="table-list">
-                                            <li><i class="lni lni-checkmark-circle"></i> Cras justo odio.</li>
-                                            <li><i class="lni lni-checkmark-circle"></i> Dapibus ac facilisis in.</li>
-                                            <li><i class="lni lni-checkmark-circle"></i> Morbi leo risus.</li>
-                                            <li><i class="lni lni-checkmark-circle"></i> Potenti felis, in cras ligula.</li>
+                                            <li><i class="lni lni-checkmark-circle"></i> No Que</li>
+                                            <li><i class="lni lni-checkmark-circle"></i>All types of Test, scans</li>
+                                            <li><i class="lni lni-checkmark-circle"></i> Easy  Booking</li>
                                         </ul>
                                     </div>
                                     <div class="button">
@@ -549,7 +550,7 @@ function Home(props) {
 
                                                     <div class="table-head">
                                                         <h4 class="title">Email Us </h4>
-                                                        <p style={{ color: "black" }}>sriqr@gmail.com Interactively grow empowered for process-centric total linkage in Digitalization.</p>
+                                                        <p style={{ color: "black" }}>amar@srshta.com Interactively grow empowered for process-centric total linkage in Digitalization.</p>
                                                     </div>
 
                                                 </div>
@@ -562,7 +563,7 @@ function Home(props) {
 
                                                     <div class="table-head">
                                                         <h4 class="title">Call Us  </h4>
-                                                        <p style={{ color: "black" }}>029-00124667 Distinctively disseminate focused solutions clicks-and-mortar ministate.</p>
+                                                        <p style={{ color: "black" }}>9848055562 we are always available For your any enquiries for the better development</p>
                                                     </div>
                                                 </div>
 
